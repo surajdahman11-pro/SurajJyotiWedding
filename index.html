@@ -300,29 +300,96 @@ button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}.site-shell
 .welcome-schedule .schedule-venue{font-size:10px;letter-spacing:.05em;margin-top:6px;color:#8c6448}
 @media(max-width:430px){.welcome-schedule{margin:5px auto;padding:7px 8px}.welcome-schedule .schedule-item strong{font-size:12px}}
 
+
+/* Opening sequence recreated from the supplied wedding-invitation video */
+.opening-page{padding:0!important;background:linear-gradient(180deg,#fffdf7 0%,#fff8ed 58%,#f8e8d8 100%)}
+.opening-page:before{content:"";position:absolute;inset:12px;border:1px solid #c59a61;z-index:5;pointer-events:none}
+.opening-backdrop{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.opening-canopy{position:absolute;top:-2px;left:-5%;width:110%;height:100px;background:linear-gradient(180deg,#fff 0 50%,#f3e9e3 52%,#d5bda5 56%,transparent 60%);clip-path:polygon(0 0,100% 0,100% 42%,88% 68%,72% 43%,50% 74%,28% 43%,12% 68%,0 42%);filter:drop-shadow(0 5px 4px #8a654433);animation:openingDrape 1.2s ease-out both}
+.opening-strings{position:absolute;top:48px;left:4%;right:4%;display:flex;justify-content:space-around;color:#d78b2b;font-size:24px;text-shadow:0 2px 2px #a75c2d;animation:openingFade 1s .3s both}
+.opening-strings i{font-style:normal;animation:openingSwing 3.8s ease-in-out infinite}
+.opening-strings i:nth-child(2n){animation-delay:-1.7s}
+.opening-side-florals{position:absolute;top:100px;bottom:72px;color:#d98b36;font-size:25px;line-height:1.7;text-shadow:0 2px 3px #8e543533;opacity:.9}
+.opening-side-florals.left{left:7px}.opening-side-florals.right{right:7px}
+.opening-content{position:relative;z-index:2;width:100%;height:100%;min-height:100%;display:flex;flex-direction:column;align-items:center;padding:80px 30px 30px}
+.opening-ganesh{position:absolute;top:17%;left:0;right:0;text-align:center;animation:ganeshLeave 8s ease both}
+.ganesh-auspicious{margin:auto;width:82px;height:82px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#fffdf3,#f3dfbd);border:1px solid #c99a5d;box-shadow:0 0 0 6px #fff8e9,0 8px 25px #67452a25;color:#9a6237;font-size:55px}
+.ganesh-script{font-family:'Italianno',cursive;font-size:29px;color:#715044;margin-top:10px}
+.opening-title{position:absolute;top:16%;left:0;right:0;display:flex;flex-direction:column;align-items:center;opacity:0;animation:openingTitleIn 8s ease both}
+.opening-dove{font-family:serif;color:#665449;font-size:35px;line-height:1;margin-bottom:4px}
+.opening-heading{font-family:'Italianno',cursive;font-size:clamp(54px,13vw,76px);line-height:.76;color:#9b783e;text-shadow:0 2px #fff}
+.opening-couple-frame{position:relative;margin-top:20px;width:clamp(205px,65vw,280px);height:clamp(255px,58vh,350px);padding:8px;border:2px solid #c5a16a;border-radius:48% 48% 5px 5px;background:#fff9ed;box-shadow:0 0 0 6px #fff7e7,0 12px 30px #60412b28;overflow:hidden}
+.opening-couple-frame:before{content:"";position:absolute;inset:6px;border:1px solid #d9bd8e;border-radius:48% 48% 3px 3px;z-index:2;pointer-events:none}
+.opening-frame-ornament{position:absolute;top:6px;left:0;right:0;z-index:3;color:#a77d43;font-size:15px;text-shadow:0 1px #fff}
+.opening-couple-image{width:100%;height:100%;object-fit:cover;object-position:center 30%;border-radius:48% 48% 2px 2px;display:block;animation:openingImageDrift 8s ease-in-out both}
+.opening-couple-names{position:absolute;z-index:3;bottom:10px;left:0;right:0;color:#fff8e9;font-size:22px;letter-spacing:.12em;text-shadow:0 2px 8px #2c1c19}
+.opening-couple-names span{color:#f1d28e}
+.opening-save{position:absolute;top:14%;left:0;right:0;display:flex;flex-direction:column;align-items:center;opacity:0;animation:openingSaveIn 8s ease both}
+.opening-rings{font-size:35px;line-height:1;color:#987344}
+.opening-save-label{font-family:Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:.18em;text-transform:uppercase;color:#9a713f;margin:5px 0 12px}
+.opening-save-card{position:relative;width:min(78%,340px);padding:18px 18px 14px;border:1px solid #c7a16c;border-radius:48% 48% 8px 8px / 22% 22% 8px 8px;background:linear-gradient(180deg,#fffdf6,#fff8ec);box-shadow:0 8px 24px #69492d20}
+.opening-flower-seal{font-size:29px;color:#d78d70}
+.opening-save-names{font-family:'Italianno',cursive;font-size:43px;line-height:.65;color:#66533e;margin:4px 0 12px}
+.opening-save-names span{font-size:24px;color:#b18a4e}
+.opening-save-copy{font-size:15px;line-height:1.25;color:#8a684c;margin-bottom:12px}
+.opening-save-date{padding:7px 0;border-top:1px solid #d7bd94;color:#74563f}
+.opening-save-date span,.opening-save-date small{display:block;font-size:12px}
+.opening-save-date strong{display:block;font-size:18px;color:#8a653a}
+.opening-save-venue{font-size:11px;letter-spacing:.06em;color:#896b50;margin-top:8px}
+.opening-rail{margin-top:auto;width:112%;height:28px;border-top:3px double #b98a4d;border-bottom:3px double #b98a4d;background:repeating-linear-gradient(90deg,transparent 0 16px,#bd9259 16px 18px,transparent 18px 33px);color:#9c713f;text-align:center;font-size:13px;line-height:20px;letter-spacing:2px;animation:openingRailIn 1s 5s both}
+.opening-continue{margin:12px 0 0;z-index:3}
+@keyframes openingDrape{from{transform:translateY(-35px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes openingFade{from{opacity:0}to{opacity:1}}
+@keyframes openingSwing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes openingTitleIn{0%,22%{opacity:0;transform:translateY(22px) scale(.97)}30%,57%{opacity:1;transform:translateY(0) scale(1)}65%,100%{opacity:0;transform:translateY(-16px) scale(1.02)}}
+@keyframes ganeshLeave{0%,20%{opacity:1;transform:scale(1)}28%,100%{opacity:0;transform:scale(.8) translateY(-15px)}}
+@keyframes openingImageDrift{0%,25%{transform:scale(1.08)}100%{transform:scale(1.16)}}
+@keyframes openingSaveIn{0%,58%{opacity:0;transform:translateY(28px) scale(.96)}68%,100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes openingRailIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:430px){.opening-content{padding:72px 24px 24px}.opening-ganesh{top:18%}.opening-title{top:15%}.opening-couple-frame{height:clamp(230px,42vh,300px);margin-top:14px}.opening-save{top:13%}.opening-save-card{width:78%;padding:12px 14px}.opening-save-names{font-size:37px}.opening-save-date{padding:5px 0}.opening-save-date strong{font-size:16px}.opening-side-florals{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.opening-ganesh,.opening-title,.opening-save,.opening-rail,.opening-canopy,.opening-strings,.opening-image-drift{animation:none!important}.opening-ganesh{display:none}.opening-title{opacity:1}.opening-save{display:none}}
+
 </style>
 </head>
 <body>
 <div class="site-shell">
 <main class="invite" id="invite" aria-label="Jyoti and Suraj wedding invitation">
 <button class="music-toggle" id="musicToggle" aria-label="Play wedding music" aria-pressed="false" title="Play wedding music">♫</button>
-<section class="page active" data-page="0" aria-label="Welcome">
-<div class="wedding-canopy" aria-hidden="true">
-  <div class="canopy-drape"></div>
-  <div class="marigold-row"><i>✿</i><i>✿</i><i>✿</i><i>✿</i><i>✿</i><i>✿</i><i>✿</i></div>
-  <div class="hanging-strings"><span>✿<b>✿</b><b>✿</b></span><span>✿<b>✿</b><b>✿</b></span><span>✿<b>✿</b><b>✿</b></span><span>✿<b>✿</b><b>✿</b></span><span>✿<b>✿</b><b>✿</b></span><span>✿<b>✿</b><b>✿</b></span></div>
-  <div class="ganesh-medallion"><span>ॐ</span><small>शुभ विवाह</small></div>
+<section class="page active opening-page" data-page="0" aria-label="Welcome">
+<div class="opening-backdrop" aria-hidden="true">
+  <div class="opening-canopy"></div>
+  <div class="opening-strings"><i>✿</i><i>✿</i><i>✿</i><i>✿</i><i>✿</i><i>✿</i><i>✿</i></div>
+  <div class="opening-side-florals left">✿<br>❀<br>✿<br>❀<br>✿</div>
+  <div class="opening-side-florals right">✿<br>❀<br>✿<br>❀<br>✿</div>
 </div>
-<div class="arch"></div><span class="floral f1">🌸</span><span class="floral f2">🌿</span><span class="floral f3">🪷</span><span class="floral f4">🌺</span>
-<div class="page-content">
-<div class="ganesh reveal">ॐ श्री गणेशाय नमः</div><div class="kicker reveal delay1">With the blessings of our families</div>
-<p class="intro-copy reveal delay1">We joyfully invite you to celebrate the wedding of</p>
-<h1 class="names reveal delay2">Jyoti <span class="and">and</span> Suraj</h1>
-<div class="small-rule reveal delay2"></div><div class="tagline reveal delay3">Two souls · One journey<br>Forever together</div><div class="welcome-schedule reveal delay3"><div class="schedule-heading">Save the dates</div><div class="schedule-grid"><div class="schedule-item"><strong>12 Feb 2027</strong>Haldi<span>10:00 AM</span></div><div class="schedule-item"><strong>13 Feb 2027</strong>Baraat<span>Time to be confirmed</span></div><div class="schedule-item"><strong>13 Feb 2027</strong>Wedding<span>7:00 PM</span></div></div><div class="schedule-venue">Akhyana · Sector 52 · Gurugram</div></div>
-<p class="intro-copy reveal delay3">A celebration of love, laughter and a beautiful new beginning.</p>
-<div class="couple-photo-wrap reveal delay3"><img class="couple-photo" src="/jyoti-suraj-couple.jpeg" alt="Jyoti and Suraj together"></div><div class="gold-railing reveal delay3" aria-hidden="true"><span>✥　✧　✥　✧　✥　✧　✥</span></div>
-<button class="btn reveal delay3" data-go="1">Begin Our Celebration <span>→</span></button>
-<div class="hero-art"><div class="sun"></div><div class="hill back"></div><div class="hill"></div><div class="pavilion"></div></div>
+<div class="opening-content">
+  <div class="opening-ganesh">
+    <div class="ganesh-auspicious">ॐ</div>
+    <div class="ganesh-script">Shree Ganeshaya Namah</div>
+  </div>
+  <div class="opening-title">
+    <div class="opening-dove">♡</div>
+    <div class="opening-heading">Wedding<br>Invitation</div>
+    <div class="opening-couple-frame">
+      <div class="opening-frame-ornament">✥　✧　✥</div>
+      <img src="/jyoti-suraj-couple.jpeg" alt="Jyoti and Suraj" class="opening-couple-image">
+      <div class="opening-couple-names">Jyoti <span>&amp;</span> Suraj</div>
+    </div>
+  </div>
+  <div class="opening-save">
+    <div class="opening-rings">◎</div>
+    <div class="opening-save-label">Save the Date</div>
+    <div class="opening-save-card">
+      <div class="opening-flower-seal">❀</div>
+      <div class="opening-save-names">Jyoti<br><span>&amp;</span><br>Suraj</div>
+      <div class="opening-save-copy">Invite you to join their<br>wedding celebrations</div>
+      <div class="opening-save-date"><span>Sunday</span><strong>22 November 2026</strong><small>Haldi &amp; Mehendi</small></div>
+      <div class="opening-save-date wedding"><span>Tuesday</span><strong>24 November 2026</strong><small>Wedding · 7:00 PM</small></div>
+      <div class="opening-save-venue">Akhyana · Sector 52 · Gurugram</div>
+    </div>
+  </div>
+  <div class="opening-rail" aria-hidden="true">✥　✧　✥　✧　✥　✧　✥　✧　✥</div>
+  <button class="btn opening-continue" data-go="1">Begin Our Celebration <span>→</span></button>
 </div>
 </section>
 <section class="page event-page barat" data-page="1" aria-label="Barat ceremony">
