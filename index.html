@@ -351,6 +351,7 @@ button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}.site-shell
 
 
 /* Invitation recreation: burgundy floral envelope and antique parchment */
+.invite:not(.has-opened) .nav,.invite:not(.has-opened) .music-toggle{display:none}
 .opening-page{padding:0!important;background:#210d18!important;display:block!important;overflow:hidden}
 .opening-page:before{display:none}
 .opening-page:after{content:"";position:absolute;inset:10px;border:1px solid #a77b4b;z-index:8;pointer-events:none;opacity:.7}
@@ -640,7 +641,7 @@ function show(index){
  prev.disabled=current===0;next.disabled=current===pages.length-1;
 }
 const openEnvelope=document.getElementById('openEnvelope');
-openEnvelope.addEventListener('click',()=>{const opening=document.querySelector('.opening-page');opening.classList.add('envelope-opened');document.getElementById('parchmentInvitation').setAttribute('aria-hidden','false');document.getElementById('envelopeHint').textContent='A celebration of love';});
+openEnvelope.addEventListener('click',()=>{document.getElementById('invite').classList.add('has-opened');const opening=document.querySelector('.opening-page');opening.classList.add('envelope-opened');document.getElementById('parchmentInvitation').setAttribute('aria-hidden','false');document.getElementById('envelopeHint').textContent='A celebration of love';});
 prev.addEventListener('click',()=>show(current-1));next.addEventListener('click',()=>show(current+1));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.go))));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(current+1);if(e.key==='ArrowLeft')show(current-1)});
