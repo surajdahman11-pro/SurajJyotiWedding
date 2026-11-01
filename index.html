@@ -502,25 +502,33 @@ radial-gradient(ellipse at 40% 85%,#6e354b 0 3px,transparent 4px);
       <div class="card-event-time">7:00 PM Onwards</div>
       <div class="card-venue">Akhyana<br><small>Sector 52, Gurugram</small></div>
       <div class="card-couple-art" aria-hidden="true">
-        <svg viewBox="0 0 180 150" role="img">
-          <path d="M0 143 Q90 130 180 143" fill="none" stroke="#a88a62" stroke-width="1"/>
-          <g transform="translate(38 22)">
-            <path d="M10 55 Q-1 85 0 122 L62 122 Q64 83 51 55Z" fill="#8b263f" stroke="#d5b27a" stroke-width="2"/>
-            <path d="M8 85 Q31 98 57 85 M3 105 Q31 118 61 105" fill="none" stroke="#e4c78d" stroke-width="2"/>
-            <ellipse cx="31" cy="36" rx="19" ry="24" fill="#bd8060"/>
-            <path d="M12 36 Q9 7 32 8 Q54 10 51 37 L44 22 Q27 29 15 20Z" fill="#291b20"/>
-            <path d="M10 20 Q31 3 52 20 L51 27 Q30 33 10 26Z" fill="#a97a3e" stroke="#e8cf91" stroke-width="2"/>
-            <path d="M15 59 Q31 69 49 59" fill="none" stroke="#e7c78c" stroke-width="4"/>
+        <svg viewBox="0 0 220 150" role="img">
+          <defs>
+            <linearGradient id="brideDress" x2="1"><stop stop-color="#8b203d"/><stop offset=".5" stop-color="#bd5260"/><stop offset="1" stop-color="#751b37"/></linearGradient>
+            <linearGradient id="groomDress" x2="1"><stop stop-color="#c4ad83"/><stop offset=".5" stop-color="#f4e7c9"/><stop offset="1" stop-color="#b99a68"/></linearGradient>
+            <linearGradient id="skinTone"><stop stop-color="#a96850"/><stop offset=".5" stop-color="#d69a75"/><stop offset="1" stop-color="#a96850"/></linearGradient>
+          </defs>
+          <g opacity=".92">
+            <path d="M12 150 Q12 95 49 82 Q78 70 96 105 L105 150Z" fill="url(#brideDress)" stroke="#d7b477" stroke-width="2"/>
+            <path d="M18 122 Q55 139 99 120 M15 137 Q54 153 102 136" fill="none" stroke="#e8cb91" stroke-width="2"/>
+            <path d="M26 83 Q23 43 55 34 Q88 39 86 84 L78 104 L31 103Z" fill="#30202a"/>
+            <ellipse cx="56" cy="66" rx="22" ry="28" fill="url(#skinTone)"/>
+            <path d="M34 62 Q31 30 58 29 Q83 31 80 62 L74 49 Q53 56 37 45Z" fill="#2a1c25"/>
+            <path d="M30 45 Q55 21 82 44 L80 51 Q55 58 30 51Z" fill="#6d1e37" stroke="#d9b578" stroke-width="2"/>
+            <path d="M35 91 Q56 103 78 91" fill="none" stroke="#e7c98f" stroke-width="4"/>
+            <circle cx="36" cy="75" r="3" fill="#e7c98f"/><circle cx="77" cy="75" r="3" fill="#e7c98f"/>
           </g>
-          <g transform="translate(94 24)">
-            <path d="M8 52 L53 52 L66 121 L-5 121Z" fill="#e8d8b6" stroke="#b9965f" stroke-width="2"/>
-            <ellipse cx="31" cy="34" rx="18" ry="23" fill="#bd8060"/>
-            <path d="M13 34 Q11 8 31 8 Q51 10 50 34 L44 20 Q29 27 16 18Z" fill="#291b20"/>
-            <path d="M10 17 Q31 0 53 18 L53 25 Q31 30 10 23Z" fill="#b58a4b" stroke="#e8cf91" stroke-width="2"/>
-            <path d="M13 54 Q31 64 50 54" fill="none" stroke="#b58a4b" stroke-width="3"/>
+          <g>
+            <path d="M113 150 Q116 91 151 83 Q187 80 208 111 L220 150Z" fill="url(#groomDress)" stroke="#b7945d" stroke-width="2"/>
+            <path d="M139 95 L139 150 M151 95 L151 150" stroke="#b28a51" stroke-width="1.5"/>
+            <ellipse cx="163" cy="65" rx="21" ry="27" fill="url(#skinTone)"/>
+            <path d="M142 62 Q139 32 164 31 Q187 33 184 62 L178 49 Q159 55 145 45Z" fill="#2b1c25"/>
+            <path d="M137 43 Q163 22 189 43 L188 52 Q163 59 137 50Z" fill="#c29a55" stroke="#f0d79e" stroke-width="2"/>
+            <path d="M144 91 Q164 101 183 90" fill="none" stroke="#b28a51" stroke-width="3"/>
           </g>
-          <path d="M80 72 Q91 105 105 72" fill="none" stroke="#b83d50" stroke-width="5" stroke-linecap="round"/>
-          <g fill="#f6e5c3"><circle cx="84" cy="84" r="4"/><circle cx="91" cy="92" r="4"/><circle cx="99" cy="84" r="4"/></g>
+          <path d="M77 99 Q109 141 143 99" fill="none" stroke="#e8d5a5" stroke-width="7" stroke-linecap="round"/>
+          <path d="M77 99 Q109 141 143 99" fill="none" stroke="#a73550" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
+          <g fill="#fff0cf"><circle cx="85" cy="111" r="4"/><circle cx="96" cy="123" r="4"/><circle cx="109" cy="128" r="4"/><circle cx="122" cy="122" r="4"/><circle cx="135" cy="110" r="4"/></g>
         </svg>
       </div>
       <div class="card-footer">With love, Jyoti &amp; Suraj</div>
@@ -722,8 +730,8 @@ function show(index){
  dotEls.forEach((d,i)=>d.classList.toggle('active',i===current));
  prev.disabled=current===0;next.disabled=current===pages.length-1;
 }
-const openEnvelope=document.getElementById('openEnvelope');
-openEnvelope.addEventListener('click',()=>{document.getElementById('invite').classList.add('has-opened');const opening=document.querySelector('.opening-page');opening.classList.add('envelope-opened');document.getElementById('parchmentInvitation').setAttribute('aria-hidden','false');document.getElementById('envelopeHint').textContent='A celebration of love';});
+// The first page now uses the reference-style sliding doors. The old envelope
+// handler referenced removed elements and stopped the rest of this script loading.
 prev.addEventListener('click',()=>show(current-1));next.addEventListener('click',()=>show(current+1));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.go))));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(current+1);if(e.key==='ArrowLeft')show(current-1)});
