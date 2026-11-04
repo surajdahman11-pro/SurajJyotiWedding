@@ -472,69 +472,92 @@ radial-gradient(ellipse at 40% 85%,#6e354b 0 3px,transparent 4px);
 @media(max-width:430px){.reference-card{inset:5.5% 4% 4%}.card-inner{padding:7% 7% 3%}.card-couple-art{bottom:9%;width:37%;height:22%}.card-copy{max-width:250px}}
 @media(max-height:720px){.card-inner{padding-top:5%}.card-monogram{font-size:55px}.card-ganesh{font-size:22px}.card-copy{font-size:11px}.card-couple-art{height:20%}}
 @media(prefers-reduced-motion:reduce){.left-door,.right-door,.reference-thread,.reference-pendant,.reference-card,.card-inner *{animation:none!important;opacity:1!important;transform:none!important}}
+
+/* Cinematic parchment invitation sequence, based on the supplied 47-second reference */
+.film-opening{padding:0!important;background:#180e12!important;isolation:isolate}
+.film-opening:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#57303a 0,#24151b 62%,#100b0e 100%);z-index:-1}
+.film-envelope{position:absolute;inset:0;z-index:8;pointer-events:none;perspective:1100px;animation:envelopeFade 1.2s 2.6s forwards}
+.envelope-door{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(135deg,#160b10,#48232d 48%,#170b10);box-shadow:inset 0 0 45px #0009;border:1px solid #8b654f}
+.door-left{left:0;transform-origin:left center;animation:doorOpen 2.4s 1.4s cubic-bezier(.55,.02,.2,1) forwards}
+.door-right{right:0;transform-origin:right center;animation:doorOpenRight 2.4s 1.4s cubic-bezier(.55,.02,.2,1) forwards}
+.envelope-seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#b28a59,#54313a 72%);border:2px solid #d5b477;color:#f8e7c6;font-family:'Italianno',cursive;font-size:32px;box-shadow:0 0 0 7px #d1ad7455,0 8px 30px #0009;animation:sealFade .5s 1.2s forwards}
+.envelope-seal span{font-size:20px;color:#e8c98f}
+.parchment{position:absolute;inset:4.5% 5.5%;overflow:hidden;border:7px double #a8865b;background:radial-gradient(ellipse at 50% 45%,#fff8e8 0,#f2e4c8 70%,#ddc69e 100%);box-shadow:0 0 0 3px #3c2028,0 15px 45px #0009;color:#432b25}
+.parchment:before{content:"";position:absolute;inset:9px;border:1px solid #a88a62;pointer-events:none}
+.parchment-border{position:absolute;inset:18px;border:1px solid #b99a6c;opacity:.7}
+.parchment-floral{position:absolute;z-index:1;color:#54252d;font-size:clamp(42px,12vw,75px);text-shadow:1px 2px 1px #d1b58b;opacity:.85;letter-spacing:-.3em}
+.floral-top{top:-15px;left:-14px;transform:rotate(-35deg)}
+.floral-bottom{bottom:-16px;right:-12px;transform:rotate(145deg)}
+.film-monogram{position:absolute;top:18%;left:0;right:0;text-align:center;font-family:'Italianno',cursive;font-size:clamp(95px,26vw,145px);line-height:1;color:#51312b;letter-spacing:-.12em;opacity:0;animation:monogramIn 4s 4s forwards}
+.film-monogram span,.film-closing-monogram span{font-size:.48em;color:#9b7548;vertical-align:middle;margin:0 .05em}
+.film-arabesque{position:absolute;top:12%;left:0;right:0;text-align:center;color:#775538;font-size:37px;opacity:0;animation:crestIn 2s 7.5s forwards}
+.film-heading{position:absolute;top:19%;left:0;right:0;display:flex;flex-direction:column;align-items:center;opacity:0;animation:headingIn 4.8s 9.5s forwards}
+.film-heading small{font-size:11px;letter-spacing:.4em;color:#775a3c}
+.film-heading strong{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,9vw,52px);font-weight:500;letter-spacing:.08em;color:#38231e}
+.film-heading em{font-family:'Italianno',cursive;font-size:clamp(42px,12vw,66px);font-style:normal;color:#57312e;line-height:1.1}
+.film-family{position:absolute;top:20%;left:9%;right:9%;text-align:center;opacity:0;animation:familyIn 5.4s 15s forwards}
+.film-family small{font-size:12px;letter-spacing:.08em;color:#76583f}
+.film-family p,.film-closing p{font-size:clamp(14px,3.8vw,18px);line-height:1.35;color:#49352b;margin:12px 0}
+.film-script-names{font-family:'Italianno',cursive;font-size:clamp(48px,13vw,72px);color:#603b34}
+.film-script-names span{font-size:.65em;color:#a47b4b}
+.film-events{position:absolute;top:19%;left:8%;right:8%;opacity:0;animation:eventsIn 7s 26s forwards}
+.film-event-title{text-align:center;font-family:'Italianno',cursive;font-size:clamp(36px,10vw,54px);color:#633b33;margin-bottom:10px}
+.film-event-row{display:flex;align-items:center;gap:13px;padding:10px 4px;border-top:1px solid #a98a624d;text-align:left}
+.film-event-art{width:62px;height:68px;flex:0 0 62px;display:grid;place-items:center;border:1px solid #b28b5b;border-radius:50% 50% 4px 4px;background:#fff8e9;font-size:35px;color:#9d5a3d}
+.film-event-row strong{display:block;font-size:19px;color:#54372e;font-weight:600}
+.film-event-row span{display:block;font-size:14px;color:#755a43;margin-top:3px}
+.film-venue{text-align:center;font-size:13px;letter-spacing:.07em;color:#76583f;padding-top:8px;border-top:1px solid #a98a624d}
+.film-closing{position:absolute;top:24%;left:9%;right:9%;text-align:center;opacity:0;animation:closingIn 6s 34s forwards}
+.film-closing-monogram{font-family:'Italianno',cursive;font-size:clamp(88px,24vw,130px);line-height:1;color:#51312b}
+.film-closing strong{font-family:'Italianno',cursive;font-size:38px;font-weight:400;color:#69443a}
+.film-begin{position:absolute;z-index:10;bottom:5.5%;left:50%;transform:translateX(-50%);white-space:nowrap;opacity:0;animation:buttonIn .8s 40s forwards}
+@keyframes doorOpen{to{transform:rotateY(-105deg);opacity:0}}
+@keyframes doorOpenRight{to{transform:rotateY(105deg);opacity:0}}
+@keyframes sealFade{to{opacity:0;transform:translate(-50%,-50%) scale(.5)}}
+@keyframes envelopeFade{to{visibility:hidden}}
+@keyframes monogramIn{0%{opacity:0;transform:scale(.7)}20%,70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+@keyframes crestIn{to{opacity:1}}
+@keyframes headingIn{0%{opacity:0;transform:translateY(20px)}15%,75%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-15px)}}
+@keyframes familyIn{0%{opacity:0;transform:translateY(20px)}15%,80%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-12px)}}
+@keyframes eventsIn{0%{opacity:0;transform:translateY(25px)}15%,80%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes closingIn{0%{opacity:0;transform:scale(.96)}15%,100%{opacity:1;transform:scale(1)}}
+@keyframes buttonIn{to{opacity:1}}
+@media(max-width:430px){.parchment{inset:3.5% 3.5%}.film-family{top:19%}.film-events{top:18%}.film-event-row{padding:8px 2px}.film-event-art{width:54px;height:60px;flex-basis:54px}.film-event-row strong{font-size:17px}.film-event-row span{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.film-envelope,.envelope-door,.envelope-seal,.film-monogram,.film-arabesque,.film-heading,.film-family,.film-events,.film-closing,.film-begin{animation:none!important}.film-envelope{display:none}.film-closing{opacity:1}.film-begin{opacity:1}}
+
 </style>
 </head>
 <body>
 <div class="site-shell">
 <main class="invite" id="invite" aria-label="Jyoti and Suraj wedding invitation">
 <button class="music-toggle" id="musicToggle" aria-label="Play wedding music" aria-pressed="false" title="Play wedding music">♫</button>
-<section class="page active opening-page reference-opening" data-page="0" aria-label="Wedding invitation">
-  <div class="reference-stage" aria-hidden="true">
-    <div class="reference-door left-door"><div class="door-florals">❧<br>✿<br>❧</div></div>
-    <div class="reference-door right-door"><div class="door-florals">❧<br>✿<br>❧</div></div>
-    <div class="reference-thread"></div>
-    <div class="reference-pendant">❦</div>
-  </div>
-  <div class="reference-card">
-    <div class="card-floral card-floral-tl">❧<br>✿<br>❧</div>
-    <div class="card-floral card-floral-br">❧<br>✿</div>
-    <div class="card-inner">
-      <div class="card-monogram">J<span>&amp;</span>S</div>
-      <div class="card-ganesh">ॐ</div>
-      <div class="card-heading-small">W E D D I N G</div>
-      <h1 class="card-heading">INVITATION</h1>
-      <div class="card-names">Jyoti <span>&amp;</span> Suraj</div>
-      <div class="card-copy">With the blessings of our families,<br>we invite you to join us as we begin<br>our journey together and celebrate<br>the union of two hearts.</div>
-      <div class="card-script">With Best Compliments From</div>
-      <div class="card-family">Our Families</div>
-      <div class="card-event-title">Wedding Ceremony</div>
-      <div class="card-event-date"><strong>24</strong><span>Tuesday<br>November 2026</span></div>
-      <div class="card-event-time">7:00 PM Onwards</div>
-      <div class="card-venue">Jewels<br><small>Near Sector 5, Gurugram</small></div>
-      <div class="card-couple-art" aria-hidden="true">
-        <svg viewBox="0 0 220 150" role="img">
-          <defs>
-            <linearGradient id="brideDress" x2="1"><stop stop-color="#8b203d"/><stop offset=".5" stop-color="#bd5260"/><stop offset="1" stop-color="#751b37"/></linearGradient>
-            <linearGradient id="groomDress" x2="1"><stop stop-color="#c4ad83"/><stop offset=".5" stop-color="#f4e7c9"/><stop offset="1" stop-color="#b99a68"/></linearGradient>
-            <linearGradient id="skinTone"><stop stop-color="#a96850"/><stop offset=".5" stop-color="#d69a75"/><stop offset="1" stop-color="#a96850"/></linearGradient>
-          </defs>
-          <g opacity=".92">
-            <path d="M12 150 Q12 95 49 82 Q78 70 96 105 L105 150Z" fill="url(#brideDress)" stroke="#d7b477" stroke-width="2"/>
-            <path d="M18 122 Q55 139 99 120 M15 137 Q54 153 102 136" fill="none" stroke="#e8cb91" stroke-width="2"/>
-            <path d="M26 83 Q23 43 55 34 Q88 39 86 84 L78 104 L31 103Z" fill="#30202a"/>
-            <ellipse cx="56" cy="66" rx="22" ry="28" fill="url(#skinTone)"/>
-            <path d="M34 62 Q31 30 58 29 Q83 31 80 62 L74 49 Q53 56 37 45Z" fill="#2a1c25"/>
-            <path d="M30 45 Q55 21 82 44 L80 51 Q55 58 30 51Z" fill="#6d1e37" stroke="#d9b578" stroke-width="2"/>
-            <path d="M35 91 Q56 103 78 91" fill="none" stroke="#e7c98f" stroke-width="4"/>
-            <circle cx="36" cy="75" r="3" fill="#e7c98f"/><circle cx="77" cy="75" r="3" fill="#e7c98f"/>
-          </g>
-          <g>
-            <path d="M113 150 Q116 91 151 83 Q187 80 208 111 L220 150Z" fill="url(#groomDress)" stroke="#b7945d" stroke-width="2"/>
-            <path d="M139 95 L139 150 M151 95 L151 150" stroke="#b28a51" stroke-width="1.5"/>
-            <ellipse cx="163" cy="65" rx="21" ry="27" fill="url(#skinTone)"/>
-            <path d="M142 62 Q139 32 164 31 Q187 33 184 62 L178 49 Q159 55 145 45Z" fill="#2b1c25"/>
-            <path d="M137 43 Q163 22 189 43 L188 52 Q163 59 137 50Z" fill="#c29a55" stroke="#f0d79e" stroke-width="2"/>
-            <path d="M144 91 Q164 101 183 90" fill="none" stroke="#b28a51" stroke-width="3"/>
-          </g>
-          <path d="M77 99 Q109 141 143 99" fill="none" stroke="#e8d5a5" stroke-width="7" stroke-linecap="round"/>
-          <path d="M77 99 Q109 141 143 99" fill="none" stroke="#a73550" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
-          <g fill="#fff0cf"><circle cx="85" cy="111" r="4"/><circle cx="96" cy="123" r="4"/><circle cx="109" cy="128" r="4"/><circle cx="122" cy="122" r="4"/><circle cx="135" cy="110" r="4"/></g>
-        </svg>
-      </div>
-      <div class="card-footer">With love, Jyoti &amp; Suraj</div>
-      <button class="btn opening-continue" data-go="1">Explore Celebrations <span>→</span></button>
+<section class="page active film-opening" data-page="0" aria-label="Wedding invitation opening">
+  <div class="film-envelope" aria-hidden="true"><div class="envelope-door door-left"></div><div class="envelope-door door-right"></div><div class="envelope-seal">J <span>&amp;</span> S</div></div>
+  <div class="parchment">
+    <div class="parchment-floral floral-top">❧ ❀ ❧</div>
+    <div class="parchment-floral floral-bottom">❀ ❧ ❀</div>
+    <div class="parchment-border"></div>
+    <div class="film-monogram">J<span>&amp;</span>S</div>
+    <div class="film-arabesque">✥</div>
+    <div class="film-heading"><small>W E D D I N G</small><strong>INVITATION</strong><em>Jyoti &amp; Suraj</em></div>
+    <div class="film-family">
+      <small>With the blessings of our families</small>
+      <p>We joyfully invite you to join us<br>as we celebrate the wedding of our beloved</p>
+      <div class="film-script-names">Jyoti <span>&amp;</span> Suraj</div>
+    </div>
+    <div class="film-events">
+      <div class="film-event-title">Wedding Celebrations</div>
+      <div class="film-event-row"><div class="film-event-art haldi-art">✿</div><div><strong>Haldi &amp; Mehendi</strong><span>Sunday · 22 November 2026</span></div></div>
+      <div class="film-event-row"><div class="film-event-art wedding-art">❀</div><div><strong>Wedding</strong><span>Tuesday · 24 November 2026</span><span>7:00 PM onwards</span></div></div>
+      <div class="film-venue">Jewels · Near Sector 5 · Gurugram</div>
+    </div>
+    <div class="film-closing">
+      <div class="film-closing-monogram">J<span>&amp;</span>S</div>
+      <p>With love and blessings, we look forward<br>to celebrating this beautiful beginning with you.</p>
+      <strong>Jyoti &amp; Suraj</strong>
     </div>
   </div>
+  <button class="btn film-begin" data-go="1">Open Wedding Invitation <span>→</span></button>
 </section>
 <section class="page event-page barat" data-page="1" aria-label="Barat ceremony">
 <div class="arch"></div><span class="floral f1">🌺</span><span class="floral f2">🌿</span><span class="floral f3">🌸</span><span class="floral f4">🪷</span>
