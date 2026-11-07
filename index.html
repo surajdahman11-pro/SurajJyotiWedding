@@ -372,9 +372,9 @@ const CONFIG = {
     { label: "THE WEDDING DAY", day: "24", weekday: "Tuesday", monthYear: "Nov, 2026",
       events: [
         { name: "Ghud Chadi", time: "4 PM", note: "at Our Residence" },
-        { name: "Barat",      time: "6 PM", note: "at Jewels, Sector 5, Gurgaon" }
+        { name: "Barat",      time: "6 PM", note: "at The Jewels" }
       ],
-      venue: "", city: "" }
+      venue: "The Jewels", city: "Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana – 122001" }
   ],
   blessing: "We invite you to join us on this joyous occasion and bless the couple with your love & good wishes.",
   complimentsFrom: "Family & Relatives"
@@ -694,7 +694,7 @@ for (const d of C.days){
     ${d.venue?`${divider(after+.2)}
     <div class="caps r" style="--d:${after+.4}s;letter-spacing:.35em">VENUE</div>
     <div class="serif b r" style="--d:${after+.6}s;font-size:18px;margin-top:2px">${esc(d.venue)}</div>
-    <div class="serif it r" style="--d:${after+.8}s;font-size:15px">${esc(d.city)}</div>`:''}`);
+    <div class="serif it r" style="--d:${after+.8}s;font-size:14.5px;line-height:1.25;max-width:260px">${esc(d.city)}</div>`:''}`);
 }
 // 6 closing
 S.push(`
