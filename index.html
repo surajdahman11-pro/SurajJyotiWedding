@@ -156,6 +156,21 @@
   .musicTip{position:absolute;top:28px;right:68px;z-index:45;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
     color:#f0d7a8;background:rgba(30,4,9,.55);padding:4px 10px;border-radius:999px;pointer-events:none;transition:opacity .8s}
   .musicTip.hide{opacity:0}
+
+  /* ---------- scene artwork ---------- */
+  .scene > *:not(.wm){position:relative;z-index:1}
+  .wm{position:absolute;inset:-40px -24px -24px;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.6s ease .3s}
+  .scene.on .wm{opacity:1}
+  .wm svg{width:100%;height:100%}
+  .wm.bandhani{-webkit-mask-image:radial-gradient(ellipse 62% 55% at 50% 52%,rgba(0,0,0,.08) 35%,#000 80%);mask-image:radial-gradient(ellipse 62% 55% at 50% 52%,rgba(0,0,0,.08) 35%,#000 80%)}
+  #pomWM{transition:opacity 1.2s ease}
+  .ownWM #pomWM{opacity:0}
+  .mono .mandala{position:absolute;left:50%;top:50%;width:250px;height:250px;margin:-132px 0 0 -125px;z-index:0;opacity:.5;animation:spin 70s linear infinite}
+  .mono .mletters,.mono .draw{z-index:1}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .toran .tl{transform-box:fill-box;transform-origin:50% 0;animation:swing 3.6s ease-in-out infinite alternate}
+  @keyframes swing{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+  @media (prefers-reduced-motion:reduce){.mandala,.toran .tl{animation:none}}
   /* ---------- couple ---------- */
   .couple{position:absolute;left:0;top:0;width:200px;height:260px;z-index:9;pointer-events:none;transform-origin:0 0;
     opacity:0;transform:translate(125px,590px) scale(1);transition:transform 1.8s cubic-bezier(.4,.1,.2,1), opacity 1.2s ease}
@@ -268,6 +283,8 @@
             <use href="#arch" fill="none" stroke="url(#goldG)" stroke-width="1.8" transform="translate(180 290) scale(.952 .969) translate(-180 -290)"/>
             <use href="#arch" fill="none" stroke="url(#goldG)" stroke-width=".7" opacity=".8" transform="translate(180 290) scale(.935 .958) translate(-180 -290)"/>
             <g id="cardOrn" fill="none" stroke="url(#goldG)" stroke-width="1"></g>
+            <path id="toranLine" d="M62,118 C74,50 124,26 180,26 C236,26 286,50 298,118" fill="none" stroke="#8a5a3a" stroke-width="1.1"/>
+            <g class="toran" id="toran"></g>
           </svg>
           <div class="sheen"></div>
         </div>
@@ -355,7 +372,7 @@ const CONFIG = {
   brideParents: "Daughter of Smt. Indu Devi & Sh. Bijender Jangra",   // leave empty "" to hide
   // One scene per day. Each event: name, time, and an optional note (theme or venue)
   days: [
-    { label: "DAY ONE", day: "22", weekday: "Sunday", monthYear: "Nov, 2026",
+    { label: "DAY ONE", art: "bandhani", day: "22", weekday: "Sunday", monthYear: "Nov, 2026",
       events: [
         { name: "Haldi",   time: "11 AM", note: "Theme · Bandhani" },
         { name: "Mehndi",  time: "4 PM",  note: "Colours · Pink & Green" },
@@ -370,7 +387,7 @@ const CONFIG = {
         { name: "Dinner", time: "7 PM",  note: "" }
       ],
       venue: "Our Residence", city: "[Home Address]" },
-    { label: "THE WEDDING DAY", day: "24", weekday: "Tuesday", monthYear: "Nov, 2026",
+    { label: "THE WEDDING DAY", art: "ghodi", day: "24", weekday: "Tuesday", monthYear: "Nov, 2026",
       events: [
         { name: "Ghud Chadi", time: "4 PM", note: "at Our Residence" },
         { name: "Barat",      time: "6 PM", note: "at The Jewels" }
@@ -631,7 +648,7 @@ $('#cardOrn').innerHTML = `
   <path d="M180,22 l5,8 -5,8 -5,-8z" fill="url(#goldG)" stroke="none"/>
   <path d="M150,540 C165,532 172,546 180,538 C188,546 195,532 210,540" />
   <circle cx="180" cy="546" r="1.8" fill="url(#goldG)" stroke="none"/>
-  <g stroke="#a07850" stroke-width=".7" opacity=".22">${pom(180,330,3.1,0,true)}</g>`;
+  <g id="pomWM" stroke="#a07850" stroke-width=".7" opacity=".22">${pom(180,330,3.1,0,true)}</g>`;
 
 /* ---------- scene content ---------- */
 const C = CONFIG;
@@ -645,15 +662,80 @@ const lotus = (d, sc=1) => `<svg class="r" style="--d:${d}s;width:${70*sc}px;hei
     <path d="M35,38 C30,26 20,18 10,16 C12,28 22,36 35,38Z"/><path d="M35,38 C40,26 50,18 60,16 C58,28 48,36 35,38Z"/>
     <path d="M35,38 C26,34 12,32 2,34 C10,40 24,42 35,38Z"/><path d="M35,38 C44,34 58,32 68,34 C60,40 46,42 35,38Z"/>
   </g><circle cx="35" cy="20" r="2" fill="#b8875a"/></svg>`;
+/* ---------- scene artwork ---------- */
+function mandalaSVG(){
+  let g='';
+  const ring=(r,n,fn)=>{let o='';for(let i=0;i<n;i++)o+=fn(i*360/n,r);return o;};
+  g+=`<circle cx="0" cy="0" r="118" /><circle cx="0" cy="0" r="112" stroke-dasharray="1.5 3"/>`;
+  g+=ring(112,32,(a)=>`<path transform="rotate(${a})" d="M0,-112 C6,-120 6,-124 0,-124 C-6,-124 -6,-120 0,-112Z"/>`);
+  g+=`<circle r="96"/>`;
+  g+=ring(96,16,(a)=>`<path transform="rotate(${a})" d="M0,-58 C14,-70 14,-88 0,-96 C-14,-88 -14,-70 0,-58Z"/><path transform="rotate(${a})" d="M0,-64 L0,-90"/>`);
+  g+=ring(70,16,(a)=>`<circle transform="rotate(${a+11.25})" cx="0" cy="-72" r="2.2" fill="#b8875a" stroke="none"/>`);
+  g+=`<circle r="58"/><circle r="52" stroke-dasharray="1 2.5"/>`;
+  g+=ring(52,12,(a)=>`<path transform="rotate(${a})" d="M0,-24 C8,-32 8,-44 0,-50 C-8,-44 -8,-32 0,-24Z"/>`);
+  g+=`<circle r="22"/><circle r="14" stroke-dasharray="1 2"/>`;
+  return `<svg class="mandala" viewBox="-126 -126 252 252" aria-hidden="true"><g fill="none" stroke="#b8875a" stroke-width=".9">${g}</g></svg>`;
+}
+function bandhaniSVG(){
+  return `<svg viewBox="0 0 348 518" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><pattern id="bdh" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <g fill="none" stroke="#8e1a2c" stroke-width="1.1">
+        <circle cx="13" cy="7" r="2"/><circle cx="13" cy="19" r="2"/><circle cx="7" cy="13" r="2"/><circle cx="19" cy="13" r="2"/>
+      </g><circle cx="13" cy="13" r="1.4" fill="#b8875a"/>
+      <circle cx="0" cy="0" r="1.1" fill="#8e1a2c"/><circle cx="26" cy="0" r="1.1" fill="#8e1a2c"/><circle cx="0" cy="26" r="1.1" fill="#8e1a2c"/><circle cx="26" cy="26" r="1.1" fill="#8e1a2c"/>
+    </pattern></defs>
+    <rect width="348" height="518" fill="url(#bdh)" opacity=".42"/></svg>`;
+}
+function ghodiSVG(){
+  return `<svg viewBox="0 0 348 518" aria-hidden="true"><g transform="translate(34 236) scale(1.4)" fill="none" stroke="#7a4a30" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" opacity=".3">
+    <path d="M52,58 C66,52 100,56 124,56 C130,46 136,36 142,28 C148,20 156,14 162,12 L164,4 L168,12 C172,14 176,18 178,24 L192,46 C194,52 190,56 184,55 C178,54 172,50 166,46 C160,52 156,60 154,72 C152,82 150,90 146,96 L146,100 C130,104 80,104 62,100 C50,98 42,92 40,80 C38,70 42,62 52,58Z" fill="#b8875a" fill-opacity=".14"/>
+    <path d="M140,98 L142,126 L140,152 L133,152 L134,126 L132,100" fill="#b8875a" fill-opacity=".14"/>
+    <path d="M126,102 L121,122 L131,137 L126,141 L114,124 L117,102" fill="#b8875a" fill-opacity=".1"/>
+    <path d="M70,100 L68,126 L70,152 L63,152 L62,126 L61,102" fill="#b8875a" fill-opacity=".1"/>
+    <path d="M58,98 C52,112 50,118 54,128 L52,152 L45,152 L47,128 C44,118 46,108 48,96" fill="#b8875a" fill-opacity=".14"/>
+    <path d="M41,70 C26,74 20,96 26,126 C30,108 33,92 42,82"/>
+    <path d="M161,14 q-7,4 -6,10 q-7,4 -6,10 q-7,4 -6,10 q-7,4 -6,10 q-6,4 -6,9"/>
+    <path d="M74,56 L126,56 L130,98 Q100,108 72,100Z" fill="#8e1a2c" fill-opacity=".16"/>
+    <path d="M72,100 q4.8,7 9.6,0 q4.8,7 9.6,0 q4.8,7 9.6,0 q4.8,7 9.6,0 q4.8,7 9.6,0 q4.8,6 9.6,-1"/>
+    <path d="M78,62 L124,62 M76,92 L128,92" stroke-dasharray="1.5 3"/>
+    <circle cx="101" cy="77" r="7"/><circle cx="101" cy="77" r="2.4" fill="#7a4a30"/>
+    <path d="M166,16 L186,46 M182,41 C179,45 185,51 190,49 M184,50 C160,64 140,62 128,58"/>
+    <path d="M161,10 C157,-4 169,-12 177,-8 C169,-4 166,2 164,10" fill="#8e1a2c" fill-opacity=".2"/>
+    <path d="M150,30 C157,46 157,58 150,72" stroke-dasharray="1.2 2.6"/>
+  </g></svg>`;
+}
+function wmFor(kind){
+  if(kind==='bandhani') return `<div class="wm bandhani">${bandhaniSVG()}</div>`;
+  if(kind==='ghodi') return `<div class="wm">${ghodiSVG()}</div>`;
+  return '';
+}
 function monogram(size=1, d=0){
   return `<div class="mono r" style="--d:${d}s;transform-origin:center;${size!==1?`width:${250*size}px;height:${190*size}px`:''}">
     <div style="transform:scale(${size});transform-origin:0 0;width:250px;height:190px;position:relative">
+      ${mandalaSVG()}
       <div class="mletters"><span class="m1">${esc(C.initials[0])}</span><span class="m2">${esc(C.initials[1])}</span></div>
       <svg class="draw" viewBox="0 0 250 190" aria-hidden="true">
         <path style="--len:520;--d:${d+.5}s" d="M14,150 C40,186 120,190 168,170 C214,150 236,128 222,108 C210,92 186,104 196,120 C204,132 226,128 232,116" fill="none" stroke="#4a1018" stroke-width="2.4" stroke-linecap="round"/>
       </svg>
     </div></div>`;
 }
+
+
+/* toran: mango leaves and marigolds hanging along the arch */
+(function(){
+  const line = document.getElementById('toranLine'), L = line.getTotalLength(), n = 19; let g = '';
+  for(let i=0;i<n;i++){
+    const pt = line.getPointAtLength(L*(i+.5)/n), d = (i*.23)%1.4;
+    if(i%2===0){
+      g += `<g class="tl" style="animation-delay:-${d}s"><path transform="translate(${pt.x} ${pt.y})" d="M0,0 C5,4 5.5,13 0,20 C-5.5,13 -5,4 0,0Z" fill="#4f6b34" stroke="#c9a46a" stroke-width=".6"/>
+            <path transform="translate(${pt.x} ${pt.y})" d="M0,2 L0,18" stroke="#9ab070" stroke-width=".5"/></g>`;
+    } else {
+      let m=''; for(let k=0;k<10;k++){ const a=k*Math.PI/5; m+=`<circle cx="${(Math.cos(a)*3.2).toFixed(2)}" cy="${(Math.sin(a)*3.2+6).toFixed(2)}" r="2.3" fill="${k%2?'#e39a2e':'#f0b33c'}"/>`; }
+      g += `<g class="tl" style="animation-delay:-${d}s"><g transform="translate(${pt.x} ${pt.y})"><path d="M0,0 L0,2" stroke="#8a5a3a" stroke-width=".8"/>${m}<circle cx="0" cy="6" r="1.6" fill="#b5651d"/></g></g>`;
+    }
+  }
+  document.getElementById('toran').innerHTML = g;
+})();
 
 const S = [];
 // 1 monogram
@@ -684,7 +766,7 @@ for (const d of C.days){
         <div class="evMain"><div class="evName">${esc(e.name)}</div>${e.note?`<div class="evNote">${esc(e.note)}</div>`:''}</div>
       </div>`).join('');
   const after = 1.5 + d.events.length*.45;
-  S.push(`
+  S.push(`${wmFor(d.art)}
     <div class="caps r" style="--d:.1s;letter-spacing:.42em">${esc(d.label)}</div>
     <div class="dateRow r" style="--d:.5s;margin-top:4px">
       <div class="dnum">${esc(d.day)}</div><div class="dbar"></div>
@@ -706,7 +788,7 @@ S.push(`
   <div class="serif it r" style="--d:2.6s;font-size:17px">${esc(C.complimentsFrom)}</div>`);
 
 const content = $('#content');
-content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}">${h}</div>`).join('');
+content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}"${/class="(wm|mono)/.test(h)?' data-own="1"':''}>${h}</div>`).join('');
 const scenes = [...content.querySelectorAll('.scene')];
 scenes[1].style.justifyContent='flex-start'; scenes[1].style.paddingTop='26px';
 const couple = $('#couple');
@@ -761,6 +843,7 @@ async function play(){
     void scenes[i].offsetWidth;
     scenes[i].classList.add('on');
     setCouple(i);
+    stage.classList.toggle('ownWM', scenes[i].dataset.own==='1');
     if(i === scenes.length-1) break;
     await sleep(HOLD[i] + (i===0?1200:0)); if(!alive()) return;
     scenes[i].classList.add('off');
@@ -779,6 +862,7 @@ function reset(){
   $('#doors').classList.remove('gone');
   resetScenes();
   setCouple(-1);
+  stage.classList.remove('ownWM');
 }
 
 
