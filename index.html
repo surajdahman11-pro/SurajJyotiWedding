@@ -91,8 +91,9 @@
   .dside{text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;line-height:1.2;color:var(--wine2)}
 
   .mono{position:relative;width:250px;height:190px}
-  .mono .m1{position:absolute;left:30px;top:-6px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:170px;line-height:1;color:var(--wine)}
-  .mono .m2{position:absolute;left:104px;top:8px;font-family:'Great Vibes',cursive;font-size:176px;line-height:1;color:var(--wine)}
+  .mono .mletters{position:absolute;left:0;right:0;top:-4px;display:flex;justify-content:center;align-items:flex-start;
+    font-family:'Great Vibes',cursive;font-size:168px;line-height:1.05;color:var(--wine)}
+  .mono .m2{margin-left:-.12em;transform:translateY(.07em)}
   .mono svg{position:absolute;left:0;top:0;width:250px;height:190px;overflow:visible}
   .draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 2.6s cubic-bezier(.5,.1,.3,1) var(--d,0s)}
   .scene.on .draw path{stroke-dashoffset:0}
@@ -647,7 +648,7 @@ const lotus = (d, sc=1) => `<svg class="r" style="--d:${d}s;width:${70*sc}px;hei
 function monogram(size=1, d=0){
   return `<div class="mono r" style="--d:${d}s;transform-origin:center;${size!==1?`width:${250*size}px;height:${190*size}px`:''}">
     <div style="transform:scale(${size});transform-origin:0 0;width:250px;height:190px;position:relative">
-      <span class="m1">${esc(C.initials[0])}</span><span class="m2">${esc(C.initials[1])}</span>
+      <div class="mletters"><span class="m1">${esc(C.initials[0])}</span><span class="m2">${esc(C.initials[1])}</span></div>
       <svg class="draw" viewBox="0 0 250 190" aria-hidden="true">
         <path style="--len:520;--d:${d+.5}s" d="M14,150 C40,186 120,190 168,170 C214,150 236,128 222,108 C210,92 186,104 196,120 C204,132 226,128 232,116" fill="none" stroke="#4a1018" stroke-width="2.4" stroke-linecap="round"/>
       </svg>
