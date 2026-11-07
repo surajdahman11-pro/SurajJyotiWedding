@@ -16,7 +16,7 @@
 <title>Suraj &amp; Jyoti — Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Amita:wght@400;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --wine:#4a1018; --wine2:#6b2a2c; --ink:#3d0c14; --gold:#b8875a; --gold2:#d9b47e;
@@ -174,6 +174,44 @@
   .toran .tl{transform-box:fill-box;transform-origin:50% 0;animation:swing 3.6s ease-in-out infinite alternate}
   @keyframes swing{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
   @media (prefers-reduced-motion:reduce){.mandala,.toran .tl{animation:none}}
+
+  /* ---------- language, music label, countdown ---------- */
+  .langBtn{position:absolute;top:68px;right:16px;z-index:45;width:44px;height:44px;border-radius:50%;cursor:pointer;padding:0;
+    background:rgba(30,4,9,.6);border:1px solid rgba(217,180,126,.7);color:#f0d7a8;font-family:'Kalam',cursive;font-size:17px;font-weight:700;line-height:1}
+  .musicLabel{position:absolute;top:22px;right:68px;z-index:45;cursor:pointer;white-space:nowrap;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;font-size:16px;color:#fbe6bd;
+    background:rgba(30,4,9,.72);border:1px solid rgba(217,180,126,.75);border-radius:999px;padding:6px 14px;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);animation:labelPulse 2.4s ease-in-out infinite;transition:opacity .6s}
+  .musicLabel.dim{opacity:.7;animation:none}
+  @keyframes labelPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .scene.on:not(.off) a{pointer-events:auto}
+  .dirLink{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;min-height:36px;border-radius:999px;
+    border:1px solid #b8875a;color:var(--wine);text-decoration:none;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;background:rgba(255,248,235,.6)}
+  .dirLink svg,.cta svg{width:16px;height:16px;flex:none}
+  .cd{display:flex;gap:8px;justify-content:center;margin:6px 0 4px}
+  .cdBox{width:60px;padding:8px 0 6px;border:1px solid #c99a5a;border-radius:8px;background:rgba(255,248,235,.55);text-align:center}
+  .cdNum{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1;color:var(--wine)}
+  .cdUnit{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.12em;color:var(--wine2);margin-top:3px}
+  .cdMsg{font-family:'Great Vibes',cursive;font-size:30px;color:var(--wine)}
+  .cdMsg:empty{display:none}
+  .ctas{display:flex;flex-direction:column;gap:8px;margin-top:12px;width:100%;max-width:250px}
+  .cta{display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;text-decoration:none;
+    background:var(--wine);color:#fbe6bd;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16px;border:1px solid #d9b47e;
+    box-shadow:0 2px 6px rgba(74,16,24,.25)}
+  /* Hindi: cursive Devanagari fonts */
+  .hi .script,.hi .evName,.hi .mletters,.hi .bigcaps,.hi .cdMsg{font-family:'Amita',cursive}
+  .hi .serif,.hi .caps,.hi .evTime,.hi .evNote,.hi .dside,.hi .ganesh,.hi .hint,.hi .hint small,.hi .cdUnit,.hi .cta,.hi .dirLink,.hi .musicLabel,.hi .replay{font-family:'Kalam',cursive;font-style:normal}
+  .hi .caps,.hi .hint,.hi .cdUnit,.hi .replay{letter-spacing:.04em !important}
+  .hi .caps{font-size:13px}
+  .hi .bigcaps{font-size:38px;letter-spacing:0}
+  .hi .evName{font-size:27px;line-height:1.15}
+  .hi .evRow{grid-template-columns:74px 1px 1fr;column-gap:10px}
+  .hi .evTime{font-size:12.5px}
+  .hi .evList{max-width:236px}
+  .hi .script{line-height:1.25}
+  .hi .mletters{font-size:130px;line-height:1.3}
+  .hi .mono .m2{margin-left:.04em;transform:translateY(.06em)}
+  .hi .musicLabel{font-size:14px}
   /* ---------- couple ---------- */
   .couple{position:absolute;left:0;top:0;width:200px;height:260px;z-index:9;pointer-events:none;transform-origin:0 0;
     opacity:0;transform:translate(125px,590px) scale(1);transition:transform 1.8s cubic-bezier(.4,.1,.2,1), opacity 1.2s ease}
@@ -353,6 +391,8 @@
   </div>
   <div class="hint" id="hint">TAP TO OPEN<small>you are cordially invited</small></div>
   <button class="replay" id="replay" type="button">REPLAY</button>
+  <div class="musicLabel" id="musicLabel">Tap for music</div>
+  <button class="langBtn" id="langBtn" type="button" aria-label="Show in Hindi">हिं</button>
   <button class="musicBtn" id="musicBtn" type="button" aria-label="Play music">
     <svg class="note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
     <svg class="bars" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="6" width="3" height="13" rx="1"/><rect x="10.5" y="4" width="3" height="15" rx="1"/><rect x="16" y="8" width="3" height="11" rx="1"/></svg>
@@ -395,11 +435,78 @@ const CONFIG = {
         { name: "Ghud Chadi", time: "4 PM", note: "at Our Residence" },
         { name: "Baraat",      time: "6 PM", note: "at The Jewels" }
       ],
-      venue: "The Jewels", city: "Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana – 122001" }
+      venue: "The Jewels", city: "Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana – 122001",
+      mapUrl: "https://maps.app.goo.gl/hpbaLzYzomiRtpyS8" }
   ],
   blessing: "We invite you to join us on this joyous occasion and bless the couple with your love & good wishes.",
   complimentsFrom: "Family & Relatives"
 };
+
+/* Hindi version (shown when the हिं button is tapped) */
+const CONFIG_HI = {
+  initials: ["स", "ज"],
+  groom: "सूरज",
+  bride: "ज्योति",
+  ganesh: "॥ श्री गणेशाय नमः ॥",
+  invocation: ["विघ्नहर्ता श्री गणेश के आशीर्वाद", "एवं बड़ों के स्नेह से"],
+  groomParents: "श्रीमती पुष्पा एवं श्री ओमप्रकाश",
+  groomRelation: "",
+  brideParents: "सुपुत्री श्रीमती इंदु देवी एवं श्री बिजेंद्र जांगड़ा",
+  days: [
+    { label: "पहला दिन", art: "bandhani", day: "22", weekday: "रविवार", monthYear: "नवंबर, 2026",
+      events: [
+        { name: "हल्दी",   time: "सुबह 11 बजे", note: "थीम · बांधनी" },
+        { name: "मेहंदी",  time: "शाम 4 बजे",  note: "रंग · गुलाबी एवं हरा" },
+        { name: "संगीत",  time: "शाम 7 बजे",  note: "" }
+      ],
+      venue: "निवास स्थान", city: "[घर का पता]" },
+    { label: "दूसरा दिन", art: "rangoli", day: "23", weekday: "सोमवार", monthYear: "नवंबर, 2026",
+      events: [
+        { name: "भात",     time: "सुबह 11 बजे",  note: "" },
+        { name: "चाक",     time: "दोपहर 3 बजे", note: "" },
+        { name: "लगन",     time: "शाम 6 बजे",   note: "" },
+        { name: "प्रीतिभोज", time: "शाम 7 बजे",   note: "" }
+      ],
+      venue: "निवास स्थान", city: "[घर का पता]" },
+    { label: "शुभ विवाह", art: "ghodi", day: "24", weekday: "मंगलवार", monthYear: "नवंबर, 2026",
+      events: [
+        { name: "घुड़चढ़ी", time: "शाम 4 बजे", note: "निवास स्थान पर" },
+        { name: "बारात",   time: "शाम 6 बजे", note: "द ज्वेल्स में" }
+      ],
+      venue: "द ज्वेल्स", city: "अतुल कटारिया चौक के पास, शीतला माता रोड, गुरुग्राम, हरियाणा – 122001",
+      mapUrl: "https://maps.app.goo.gl/hpbaLzYzomiRtpyS8" }
+  ],
+  blessing: "इस मंगल अवसर पर पधारकर वर-वधू को अपना आशीर्वाद प्रदान करें।",
+  complimentsFrom: "समस्त परिवारजन एवं संबंधी"
+};
+
+/* Fixed wording used around the details, in both languages */
+const UI = {
+  en: { wedding: "WEDDING", invitation: "INVITATION", amp: "&amp;",
+        request: ["request the pleasure of your presence", "at the wedding ceremony of their"], withWord: "with",
+        venue: "VENUE", compliments: "With Best Compliments From",
+        tapOpen: "TAP TO OPEN", invited: "you are cordially invited", replay: "REPLAY",
+        tapMusic: "Tap for music", tapMute: "Tap to mute",
+        cdLabel: "COUNTING DOWN TO", cdTitle: "Our Wedding", cdDate: "Baraat · 24 Nov 2026 · 6 PM",
+        units: ["Days", "Hours", "Mins", "Secs"], cdStarted: "The celebrations have begun!", cdDone: "Just married!",
+        calGoogle: "Add to Google Calendar", calApple: "Add to iPhone / Outlook", directions: "Directions to The Jewels",
+        getDir: "Get directions", langBtn: "हिं", langAria: "Show in Hindi" },
+  hi: { wedding: "शुभ विवाह", invitation: "निमंत्रण", amp: "संग",
+        request: ["अपने प्रिय सुपुत्र के शुभ विवाह में", "आपको सादर आमंत्रित करते हैं"], withWord: "संग",
+        venue: "स्थान", compliments: "विनीत",
+        tapOpen: "खोलने के लिए टैप करें", invited: "आप सादर आमंत्रित हैं", replay: "फिर से देखें",
+        tapMusic: "संगीत के लिए टैप करें", tapMute: "बंद करने के लिए टैप करें",
+        cdLabel: "शुभ घड़ी में शेष", cdTitle: "हमारा विवाह", cdDate: "बारात · 24 नवंबर 2026 · शाम 6 बजे",
+        units: ["दिन", "घंटे", "मिनट", "सेकंड"], cdStarted: "उत्सव आरंभ हो चुका है!", cdDone: "शुभ विवाह संपन्न!",
+        calGoogle: "गूगल कैलेंडर में जोड़ें", calApple: "आईफ़ोन / आउटलुक में जोड़ें", directions: "द ज्वेल्स का रास्ता",
+        getDir: "रास्ता देखें", langBtn: "En", langAria: "Show in English" }
+};
+const WEDDING_AT = new Date("2026-11-24T18:00:00+05:30");   // countdown target (Baraat)
+const GCAL = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+  + "&text=" + encodeURIComponent("Suraj & Jyoti's Wedding")
+  + "&dates=20261122/20261125"
+  + "&location=" + encodeURIComponent("The Jewels, Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana 122001")
+  + "&details=" + encodeURIComponent("22 Nov: Haldi 11 AM, Mehndi 4 PM, Sangeet 7 PM (our residence)\n23 Nov: Bhaat 11 AM, Chaak 3 PM, Lagan 6 PM, Dinner 7 PM (our residence)\n24 Nov: Ghud Chadi 4 PM (our residence), Baraat 6 PM at The Jewels\n\nDirections: https://maps.app.goo.gl/hpbaLzYzomiRtpyS8");
 /* ========================================================= */
 
 const NS = "http://www.w3.org/2000/svg";
@@ -675,7 +782,7 @@ $('#cardOrn').innerHTML = `
   <g id="pomWM" fill="none" stroke="#a07850" stroke-width=".9" opacity=".26" transform="translate(180 318) scale(1.25)">${kalashArt()}</g>`;
 
 /* ---------- scene content ---------- */
-const C = CONFIG;
+let C = CONFIG, lang = 'en', U = UI.en;
 const divider = (d) => `<svg class="divider r" style="--d:${d}s" viewBox="0 0 150 16" aria-hidden="true">
   <path d="M5,8 C35,8 50,2 68,8 M145,8 C115,8 100,2 82,8" fill="none" stroke="#b8875a" stroke-width="1"/>
   <path d="M75,2 l6,6 -6,6 -6,-6z" fill="#b8875a"/></svg>`;
@@ -780,60 +887,111 @@ function monogram(size=1, d=0){
   document.getElementById('toran').innerHTML = g;
 })();
 
-const S = [];
-// 1 monogram
-S.push(`${monogram(1,.1)}${divider(1.4)}`);
-// 2 bismillah + title + names
-S.push(`
-  ${lotus(.1,1.2)}
-  <div class="ganesh r" style="--d:.4s">${esc(C.ganesh)}</div>
-  ${divider(.7)}
-  <div class="caps r" style="--d:1s;margin-top:14px">WEDDING</div>
-  <div class="bigcaps r" style="--d:1.3s;margin-top:6px">INVITATION</div>
-  <div class="script w" style="--d:2s;font-size:50px;margin-top:22px">${esc(C.groom)} &amp; ${esc(C.bride)}</div>`);
-// 3 family invitation
-S.push(`
-  <div class="ganesh r" style="--d:0s;font-size:15px">${esc(C.ganesh)}</div>
-  <div class="serif it r" style="--d:.4s;font-size:15px;line-height:1.25;margin-top:6px">${esc(C.invocation[0])}<br>${esc(C.invocation[1])}</div>
-  <div class="serif b r" style="--d:1s;font-size:18px;margin-top:12px">${esc(C.groomParents)}</div>
-  <div class="serif r" style="--d:1.4s;font-size:16px;line-height:1.22;margin-top:4px">request the pleasure of your presence<br>at the wedding ceremony of their<br>${esc(C.groomRelation)}</div>
-  <div class="script w" style="--d:2.2s;font-size:54px;margin-top:10px">${esc(C.groom)}</div>
-  <div class="script r" style="--d:3.2s;font-size:28px;color:#6b2a2c">with</div>
-  <div class="script w" style="--d:3.6s;font-size:54px">${esc(C.bride)}</div>
-  ${C.brideParents?`<div class="serif r" style="--d:4.6s;font-size:14.5px;margin-top:6px;line-height:1.25">${esc(C.brideParents)}</div>`:''}`);
-// day-by-day schedule
-for (const d of C.days){
-  const rows = d.events.map((e,i)=>`
-      <div class="evRow r" style="--d:${1.5+i*.45}s">
-        <div class="evTime">${esc(e.time)}</div><div class="evBar"></div>
-        <div class="evMain"><div class="evName">${esc(e.name)}</div>${e.note?`<div class="evNote">${esc(e.note)}</div>`:''}</div>
-      </div>`).join('');
-  const after = 1.5 + d.events.length*.45;
-  S.push(`${wmFor(d.art)}
-    <div class="caps r" style="--d:.1s;letter-spacing:.42em">${esc(d.label)}</div>
-    <div class="dateRow r" style="--d:.5s;margin-top:4px">
-      <div class="dnum">${esc(d.day)}</div><div class="dbar"></div>
-      <div class="dside">${esc(d.weekday)}<br>${esc(d.monthYear)}</div>
-    </div>
+const pinIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg>`;
+const calIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+function buildScenes(){
+  const S = [];
+  // 1 monogram
+  S.push(`${monogram(1,.1)}${divider(1.4)}`);
+  // 2 title + names
+  S.push(`
+    ${lotus(.1,1.2)}
+    <div class="ganesh r" style="--d:.4s">${esc(C.ganesh)}</div>
+    ${divider(.7)}
+    <div class="caps r" style="--d:1s;margin-top:14px">${U.wedding}</div>
+    <div class="bigcaps r" style="--d:1.3s;margin-top:6px">${U.invitation}</div>
+    <div class="script w" style="--d:2s;font-size:50px;margin-top:22px">${esc(C.groom)} ${U.amp} ${esc(C.bride)}</div>`);
+  // 3 family invitation
+  S.push(`
+    <div class="ganesh r" style="--d:0s;font-size:15px">${esc(C.ganesh)}</div>
+    <div class="serif it r" style="--d:.4s;font-size:15px;line-height:1.25;margin-top:6px">${esc(C.invocation[0])}<br>${esc(C.invocation[1])}</div>
+    <div class="serif b r" style="--d:1s;font-size:18px;margin-top:12px">${esc(C.groomParents)}</div>
+    <div class="serif r" style="--d:1.4s;font-size:16px;line-height:1.22;margin-top:4px">${U.request[0]}<br>${U.request[1]}${C.groomRelation?'<br>'+esc(C.groomRelation):''}</div>
+    <div class="script w" style="--d:2.2s;font-size:54px;margin-top:10px">${esc(C.groom)}</div>
+    <div class="script r" style="--d:3.2s;font-size:28px;color:#6b2a2c">${U.withWord}</div>
+    <div class="script w" style="--d:3.6s;font-size:54px">${esc(C.bride)}</div>
+    ${C.brideParents?`<div class="serif r" style="--d:4.6s;font-size:14.5px;margin-top:6px;line-height:1.25">${esc(C.brideParents)}</div>`:''}`);
+  // day-by-day schedule
+  for (const d of C.days){
+    const rows = d.events.map((e,i)=>`
+        <div class="evRow r" style="--d:${1.5+i*.45}s">
+          <div class="evTime">${esc(e.time)}</div><div class="evBar"></div>
+          <div class="evMain"><div class="evName">${esc(e.name)}</div>${e.note?`<div class="evNote">${esc(e.note)}</div>`:''}</div>
+        </div>`).join('');
+    const after = 1.5 + d.events.length*.45;
+    S.push(`${wmFor(d.art)}
+      <div class="caps r" style="--d:.1s;letter-spacing:.42em">${esc(d.label)}</div>
+      <div class="dateRow r" style="--d:.5s;margin-top:4px">
+        <div class="dnum">${esc(d.day)}</div><div class="dbar"></div>
+        <div class="dside">${esc(d.weekday)}<br>${esc(d.monthYear)}</div>
+      </div>
+      ${divider(1.1)}
+      <div class="evList">${rows}</div>
+      ${d.venue?`${divider(after+.2)}
+      <div class="caps r" style="--d:${after+.4}s;letter-spacing:.35em">${U.venue}</div>
+      <div class="serif b r" style="--d:${after+.6}s;font-size:18px;margin-top:2px">${esc(d.venue)}</div>
+      <div class="serif it r" style="--d:${after+.8}s;font-size:14.5px;line-height:1.25;max-width:260px">${esc(d.city)}</div>
+      ${d.mapUrl?`<a class="dirLink r" style="--d:${after+1.1}s" href="${d.mapUrl}" target="_blank" rel="noopener">${pinIcon}<span>${U.getDir}</span></a>`:''}`:''}`);
+  }
+  // closing
+  S.push(`
+    ${monogram(.72,.1)}
+    <div class="serif it r" style="--d:1.2s;font-size:16px;line-height:1.32;margin-top:14px;max-width:270px">${esc(C.blessing)}</div>
+    ${divider(1.9)}
+    <div class="serif b r" style="--d:2.3s;font-size:17px">${U.compliments}</div>
+    <div class="serif it r" style="--d:2.6s;font-size:17px">${esc(C.complimentsFrom)}</div>`);
+  // countdown
+  const map = C.days[C.days.length-1].mapUrl;
+  S.push(`
+    <div class="caps r" style="--d:.1s;letter-spacing:.36em">${U.cdLabel}</div>
+    <div class="script w" style="--d:.4s;font-size:48px;margin-top:4px">${U.cdTitle}</div>
+    <div class="serif it r" style="--d:.9s;font-size:15px">${U.cdDate}</div>
     ${divider(1.1)}
-    <div class="evList">${rows}</div>
-    ${d.venue?`${divider(after+.2)}
-    <div class="caps r" style="--d:${after+.4}s;letter-spacing:.35em">VENUE</div>
-    <div class="serif b r" style="--d:${after+.6}s;font-size:18px;margin-top:2px">${esc(d.venue)}</div>
-    <div class="serif it r" style="--d:${after+.8}s;font-size:14.5px;line-height:1.25;max-width:260px">${esc(d.city)}</div>`:''}`);
+    <div class="cd r" style="--d:1.3s">
+      ${['d','h','m','s'].map((k,i)=>`<div class="cdBox"><div class="cdNum" data-u="${k}">--</div><div class="cdUnit">${U.units[i]}</div></div>`).join('')}
+    </div>
+    <div class="cdMsg" data-u="msg"></div>
+    <div class="ctas r" style="--d:1.9s">
+      <a class="cta" href="${GCAL}" target="_blank" rel="noopener">${calIcon}<span>${U.calGoogle}</span></a>
+      <a class="cta" href="invite.ics" target="_blank" rel="noopener">${calIcon}<span>${U.calApple}</span></a>
+      ${map?`<a class="cta" href="${map}" target="_blank" rel="noopener">${pinIcon}<span>${U.directions}</span></a>`:''}
+    </div>`);
+  return S;
 }
-// 6 closing
-S.push(`
-  ${monogram(.72,.1)}
-  <div class="serif it r" style="--d:1.2s;font-size:16px;line-height:1.32;margin-top:14px;max-width:270px">${esc(C.blessing)}</div>
-  ${divider(1.9)}
-  <div class="serif b r" style="--d:2.3s;font-size:17px">With Best Compliments From</div>
-  <div class="serif it r" style="--d:2.6s;font-size:17px">${esc(C.complimentsFrom)}</div>`);
 
 const content = $('#content');
-content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}"${/class="(wm|mono)/.test(h)?' data-own="1"':''}>${h}</div>`).join('');
-const scenes = [...content.querySelectorAll('.scene')];
-scenes[1].style.justifyContent='flex-start'; scenes[1].style.paddingTop='26px';
+let scenes = [], curIdx = -1;
+function render(){
+  C = lang === 'hi' ? CONFIG_HI : CONFIG; U = UI[lang];
+  const S = buildScenes();
+  content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}"${/class="(wm|mono)/.test(h)?' data-own="1"':''}>${h}</div>`).join('');
+  scenes = [...content.querySelectorAll('.scene')];
+  scenes[1].style.justifyContent='flex-start'; scenes[1].style.paddingTop='26px';
+  scenes.forEach((sc,i)=>{ if(i === curIdx) sc.classList.add('on'); else sc.classList.add('off'); });
+  stage.classList.toggle('hi', lang === 'hi');
+  document.documentElement.lang = lang;
+  $('#hint').innerHTML = `${U.tapOpen}<small>${U.invited}</small>`;
+  $('#replay').textContent = U.replay;
+  const lb = $('#langBtn'); lb.textContent = U.langBtn; lb.setAttribute('aria-label', U.langAria);
+  try{ updateMusicLabel(); }catch(e){}   // music section may not be ready on first render
+  tickCountdown();
+}
+function tickCountdown(){
+  const nums = content.querySelectorAll('[data-u]'); if(!nums.length) return;
+  const diff = WEDDING_AT - Date.now();
+  const box = content.querySelector('.cd'), msg = content.querySelector('.cdMsg');
+  if(diff > 0){
+    const t = Math.floor(diff/1000);
+    const v = { d: Math.floor(t/86400), h: Math.floor(t%86400/3600), m: Math.floor(t%3600/60), s: t%60 };
+    nums.forEach(n=>{ const k = n.dataset.u; if(k in v) n.textContent = String(v[k]).padStart(2,'0'); });
+    if(box) box.style.display = ''; if(msg) msg.textContent = '';
+  } else {
+    if(box) box.style.display = 'none';
+    if(msg) msg.textContent = diff > -2*86400000 ? U.cdStarted : U.cdDone;
+  }
+}
+setInterval(tickCountdown, 1000);
+render();
 const couple = $('#couple');
 function setCouple(i){ couple.classList.remove('center','corner');
   if(i===1) couple.classList.add('center'); else if(i>=2) couple.classList.add('corner'); }
@@ -868,7 +1026,7 @@ stage.addEventListener('pointerleave', ()=> tilt.style.transform = '');
 /* ---------- timeline ---------- */
 let run = 0, started = false;
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
-const HOLD = [4200, 6000, 8600, 8200, 8800, 7600];   // ms each scene stays before the next
+const HOLD = [4200, 6000, 8600, 8200, 8800, 7600, 7000];   // ms each scene stays before the next
 
 function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
 
@@ -885,6 +1043,7 @@ async function play(){
     scenes[i].classList.remove('off');
     void scenes[i].offsetWidth;
     scenes[i].classList.add('on');
+    curIdx = i;
     setCouple(i);
     stage.classList.toggle('ownWM', scenes[i].dataset.own==='1');
     if(i === scenes.length-1) break;
@@ -903,6 +1062,7 @@ function reset(){
   stopPetals();
   stage.classList.remove('opening','opened');
   $('#doors').classList.remove('gone');
+  curIdx = -1;
   resetScenes();
   setCouple(-1);
   stage.classList.remove('ownWM');
@@ -912,7 +1072,9 @@ function reset(){
 /* ---------- music ---------- */
 const music = $('#music'), mBtn = $('#musicBtn');
 let wantMusic = true, fadeT = null;
-function showPlaying(on){ mBtn.classList.toggle('playing', on); mBtn.setAttribute('aria-label', on ? 'Mute music' : 'Play music'); }
+function updateMusicLabel(){ const ml = $('#musicLabel'); const on = !music.paused;
+  ml.textContent = on ? U.tapMute : U.tapMusic; ml.classList.toggle('dim', on); }
+function showPlaying(on){ mBtn.classList.toggle('playing', on); mBtn.setAttribute('aria-label', on ? 'Mute music' : 'Play music'); updateMusicLabel(); }
 function fadeIn(){ clearInterval(fadeT); let v = 0; music.volume = 0;
   fadeT = setInterval(()=>{ v = Math.min(.85, v + .05); music.volume = v; if(v >= .85) clearInterval(fadeT); }, 120); }
 function startMusic(){
@@ -921,6 +1083,8 @@ function startMusic(){
   if(!p) return Promise.resolve(false);
   return p.then(()=>{ mBtn.hidden = false; showPlaying(true); fadeIn(); return true; }).catch(()=>false);
 }
+$('#musicLabel').addEventListener('click', e=>{ e.stopPropagation(); mBtn.click(); });
+$('#langBtn').addEventListener('click', e=>{ e.stopPropagation(); lang = lang === 'en' ? 'hi' : 'en'; render(); });
 mBtn.addEventListener('click', e=>{ e.stopPropagation();
   if(music.paused){ wantMusic = true; startMusic(); } else { wantMusic = false; music.pause(); showPlaying(false); } });
 stage.addEventListener('pointerdown', ()=>{ if(music.paused && wantMusic) startMusic(); });
