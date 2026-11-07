@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://surajdahman11-pro.github.io/SurajJyotiWedding/">
 <meta property="og:title" content="Suraj &amp; Jyoti — Wedding Invitation">
-<meta property="og:description" content="You are warmly invited · Haldi &amp; Mehendi 22 Nov · Wedding 24 Nov 2026, Gurgaon">
+<meta property="og:description" content="You are warmly invited · Haldi, Mehndi &amp; Sangeet 22 Nov · Lagan 23 Nov · Barat 24 Nov 2026, Gurgaon">
 <meta property="og:image" content="https://surajdahman11-pro.github.io/SurajJyotiWedding/preview.jpg">
 <meta property="og:image:width" content="800">
 <meta property="og:image:height" content="800">
@@ -77,6 +77,14 @@
   .b{font-weight:700;color:var(--wine)}
   .divider{width:150px;height:16px;margin:8px auto}
 
+
+  .ganesh{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;letter-spacing:.04em;color:var(--wine);margin-top:4px}
+  .evList{display:flex;flex-direction:column;gap:6px;width:100%;max-width:268px;margin:2px auto 0}
+  .evRow{display:grid;grid-template-columns:66px 1px 1fr;align-items:center;column-gap:12px;text-align:left}
+  .evTime{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:.06em;color:var(--wine2);text-align:right;white-space:nowrap}
+  .evBar{height:30px;background:var(--gold);opacity:.7}
+  .evName{font-family:'Great Vibes',cursive;font-size:31px;line-height:1;color:var(--wine)}
+  .evNote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13.5px;color:var(--wine2);margin-top:1px}
   .dateRow{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px 0 6px}
   .dnum{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:66px;line-height:.9;color:var(--wine)}
   .dbar{width:1px;height:56px;background:var(--gold)}
@@ -339,20 +347,34 @@ const CONFIG = {
   initials: ["S", "J"],
   groom: "Suraj",
   bride: "Jyoti",
-  invocation: ["With the blessings of the Almighty", "and the love of our elders"],
-  groomParents: "Mrs. Pushpa & Mr. Omprakash",
+  ganesh: "॥ Shree Ganeshaya Namah ॥",
+  invocation: ["With the blessings of Lord Ganesha", "and the love of our elders"],
+  groomParents: "Smt. Pushpa & Sh. Omprakash",
   groomRelation: "beloved son",
-  brideParents: "",            // e.g. "D/o Mrs. ___ & Mr. ___" (leave empty to hide)
-  events: [
-    { title: "Haldi", line1: "A splash of turmeric, love & laughter.", line2: "Come colour the couple in yellow!",
-      day: "22", weekday: "Sunday", monthYear: "Nov, 2026", time: "[Time]",
+  brideParents: "Daughter of Smt. Indu Devi & Sh. Bijender Jangra",   // leave empty "" to hide
+  // One scene per day. Each event: name, time, and an optional note (theme or venue)
+  days: [
+    { label: "DAY ONE", day: "22", weekday: "Sunday", monthYear: "Nov, 2026",
+      events: [
+        { name: "Haldi",   time: "11 AM", note: "Theme · Bandhani" },
+        { name: "Mehndi",  time: "4 PM",  note: "Colours · Pink & Green" },
+        { name: "Sangeet", time: "7 PM",  note: "" }
+      ],
       venue: "Our Residence", city: "[Home Address]" },
-    { title: "Mehendi", line1: "Henna, music & a merry evening.", line2: "Join us as the colours deepen.",
-      day: "22", weekday: "Sunday", monthYear: "Nov, 2026", time: "Evening · [Time]",
+    { label: "DAY TWO", day: "23", weekday: "Monday", monthYear: "Nov, 2026",
+      events: [
+        { name: "Bhaat",  time: "11 AM", note: "" },
+        { name: "Chaak",  time: "3 PM",  note: "" },
+        { name: "Lagan",  time: "6 PM",  note: "" },
+        { name: "Dinner", time: "7 PM",  note: "" }
+      ],
       venue: "Our Residence", city: "[Home Address]" },
-    { title: "Wedding", line1: "Suraj & Jyoti", line2: "are tying the knot!",
-      day: "24", weekday: "Tuesday", monthYear: "Nov, 2026", time: "[Time]",
-      venue: "Jewels", city: "Sector 5, Gurgaon" }
+    { label: "THE WEDDING DAY", day: "24", weekday: "Tuesday", monthYear: "Nov, 2026",
+      events: [
+        { name: "Ghud Chadi", time: "4 PM", note: "at Our Residence" },
+        { name: "Barat",      time: "6 PM", note: "at Jewels, Sector 5, Gurgaon" }
+      ],
+      venue: "", city: "" }
   ],
   blessing: "We invite you to join us on this joyous occasion and bless the couple with your love & good wishes.",
   complimentsFrom: "Family & Relatives"
@@ -637,35 +659,42 @@ const S = [];
 S.push(`${monogram(1,.1)}${divider(1.4)}`);
 // 2 bismillah + title + names
 S.push(`
-  ${lotus(.1,1.3)}
-  ${divider(.5)}
-  <div class="caps r" style="--d:.8s;margin-top:18px">WEDDING</div>
-  <div class="bigcaps r" style="--d:1.1s;margin-top:6px">INVITATION</div>
-  <div class="script w" style="--d:1.8s;font-size:50px;margin-top:22px">${esc(C.groom)} &amp; ${esc(C.bride)}</div>`);
+  ${lotus(.1,1.2)}
+  <div class="ganesh r" style="--d:.4s">${esc(C.ganesh)}</div>
+  ${divider(.7)}
+  <div class="caps r" style="--d:1s;margin-top:14px">WEDDING</div>
+  <div class="bigcaps r" style="--d:1.3s;margin-top:6px">INVITATION</div>
+  <div class="script w" style="--d:2s;font-size:50px;margin-top:22px">${esc(C.groom)} &amp; ${esc(C.bride)}</div>`);
 // 3 family invitation
 S.push(`
-  ${lotus(0,.9)}
-  <div class="serif it r" style="--d:.4s;font-size:15px;line-height:1.25;margin-top:4px">${esc(C.invocation[0])}<br>${esc(C.invocation[1])}</div>
+  <div class="ganesh r" style="--d:0s;font-size:15px">${esc(C.ganesh)}</div>
+  <div class="serif it r" style="--d:.4s;font-size:15px;line-height:1.25;margin-top:6px">${esc(C.invocation[0])}<br>${esc(C.invocation[1])}</div>
   <div class="serif b r" style="--d:1s;font-size:18px;margin-top:12px">${esc(C.groomParents)}</div>
   <div class="serif r" style="--d:1.4s;font-size:16px;line-height:1.22;margin-top:4px">request the pleasure of your presence<br>at the wedding ceremony of their<br>${esc(C.groomRelation)}</div>
   <div class="script w" style="--d:2.2s;font-size:54px;margin-top:10px">${esc(C.groom)}</div>
   <div class="script r" style="--d:3.2s;font-size:28px;color:#6b2a2c">with</div>
   <div class="script w" style="--d:3.6s;font-size:54px">${esc(C.bride)}</div>
-  ${C.brideParents?`<div class="serif r" style="--d:4.6s;font-size:15px;margin-top:6px">${esc(C.brideParents)}</div>`:''}`);
-// 4,5 events
-for (const e of C.events){
+  ${C.brideParents?`<div class="serif r" style="--d:4.6s;font-size:14.5px;margin-top:6px;line-height:1.25">${esc(C.brideParents)}</div>`:''}`);
+// day-by-day schedule
+for (const d of C.days){
+  const rows = d.events.map((e,i)=>`
+      <div class="evRow r" style="--d:${1.5+i*.45}s">
+        <div class="evTime">${esc(e.time)}</div><div class="evBar"></div>
+        <div class="evMain"><div class="evName">${esc(e.name)}</div>${e.note?`<div class="evNote">${esc(e.note)}</div>`:''}</div>
+      </div>`).join('');
+  const after = 1.5 + d.events.length*.45;
   S.push(`
-    <div class="script w" style="--d:.1s;font-size:${e.title.length>10?42:54}px">${esc(e.title)}</div>
-    <div class="serif it r" style="--d:.9s;font-size:16px;line-height:1.3;margin-top:6px">${esc(e.line1)}<br>${esc(e.line2)}</div>
-    <div class="dateRow r" style="--d:1.4s">
-      <div class="dnum">${esc(e.day)}</div><div class="dbar"></div>
-      <div class="dside">${esc(e.weekday)}<br>${esc(e.monthYear)}</div>
+    <div class="caps r" style="--d:.1s;letter-spacing:.42em">${esc(d.label)}</div>
+    <div class="dateRow r" style="--d:.5s;margin-top:4px">
+      <div class="dnum">${esc(d.day)}</div><div class="dbar"></div>
+      <div class="dside">${esc(d.weekday)}<br>${esc(d.monthYear)}</div>
     </div>
-    <div class="serif r" style="--d:1.9s;font-size:19px;color:#4a1018">${esc(e.time)}</div>
-    ${divider(2.2)}
-    <div class="caps r" style="--d:2.5s;letter-spacing:.35em">VENUE</div>
-    <div class="serif b r" style="--d:2.8s;font-size:20px;margin-top:4px">${esc(e.venue)}</div>
-    <div class="serif it r" style="--d:3.1s;font-size:16px">${esc(e.city)}</div>`);
+    ${divider(1.1)}
+    <div class="evList">${rows}</div>
+    ${d.venue?`${divider(after+.2)}
+    <div class="caps r" style="--d:${after+.4}s;letter-spacing:.35em">VENUE</div>
+    <div class="serif b r" style="--d:${after+.6}s;font-size:18px;margin-top:2px">${esc(d.venue)}</div>
+    <div class="serif it r" style="--d:${after+.8}s;font-size:15px">${esc(d.city)}</div>`:''}`);
 }
 // 6 closing
 S.push(`
@@ -713,7 +742,7 @@ stage.addEventListener('pointerleave', ()=> tilt.style.transform = '');
 /* ---------- timeline ---------- */
 let run = 0, started = false;
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
-const HOLD = [4200, 5600, 8600, 7000, 7000, 7000];   // ms each scene stays before the next
+const HOLD = [4200, 6000, 8600, 8200, 8800, 7600];   // ms each scene stays before the next
 
 function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
 
