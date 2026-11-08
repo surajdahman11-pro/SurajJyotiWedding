@@ -23,7 +23,9 @@
     --cream:#f4e8d2; --cream2:#e3cfac;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;background:#120306;overflow:hidden;-webkit-tap-highlight-color:transparent}
+  html,body{width:100%;height:100%;background:#120306;overflow:hidden;-webkit-tap-highlight-color:transparent;
+    -webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}
+  #stage *{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   #stage{position:absolute;left:50%;top:50%;width:450px;height:800px;transform-origin:50% 50%;
     overflow:hidden;background:#2a070d;user-select:none;-webkit-user-select:none;cursor:pointer}
 
@@ -529,9 +531,20 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':
 
 /* ---------- stage scaling ---------- */
 const stage = $('#stage');
-function fit(){ const s = Math.min(innerWidth/450, innerHeight/800);
+/* Measure the visible screen robustly (some Android browsers report the wrong size while loading) */
+function viewSize(){
+  const de = document.documentElement, vv = window.visualViewport;
+  const ws = [de.clientWidth, innerWidth, vv && vv.width * (vv.scale || 1)].filter(v => v > 0);
+  const hs = [de.clientHeight, innerHeight, vv && vv.height * (vv.scale || 1)].filter(v => v > 0);
+  return { w: ws.length ? Math.min(...ws) : 450, h: hs.length ? Math.min(...hs) : 800 };
+}
+function fit(){ const { w, h } = viewSize(); const s = Math.min(w/450, h/800);
   stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
-addEventListener('resize', fit); fit();
+addEventListener('resize', fit); addEventListener('orientationchange', ()=>setTimeout(fit, 250));
+addEventListener('load', fit); addEventListener('pageshow', fit);
+if(window.visualViewport) visualViewport.addEventListener('resize', fit);
+fit(); [100, 400, 1000, 2500].forEach(t => setTimeout(fit, t));
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
 /* ---------- floral generators (original motifs) ---------- */
 function petalPath(r){ return `M0,0 C${r*.55},${-r*.25} ${r*.6},${-r*.85} 0,${-r} C${-r*.6},${-r*.85} ${-r*.55},${-r*.25} 0,0Z`; }
