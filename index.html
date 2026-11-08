@@ -195,6 +195,18 @@
   .dirLink{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;min-height:36px;border-radius:999px;
     border:1px solid #b8875a;color:var(--wine);text-decoration:none;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;background:rgba(255,248,235,.6)}
   .dirLink svg,.cta svg{width:16px;height:16px;flex:none}
+  .evList.compact{gap:1px}
+  .evList.compact .evName{font-size:26px}
+  .evList.compact .evNote{font-size:12px;margin-top:0}
+  .evList.compact .evBar{height:26px}
+  .hi .evList.compact .evName{font-size:23px}
+  .venues{display:flex;justify-content:center;gap:14px;width:100%;max-width:290px}
+  .venue{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;flex:1}
+  .vName{font-size:18px;margin-top:2px}
+  .vCity{font-size:14.5px;line-height:1.25;max-width:260px}
+  .venues.two .vName{font-size:16px}
+  .venues.two .vCity{font-size:12.5px}
+  .venues.two .dirLink{margin-top:4px;font-size:13.5px;padding:4px 10px;min-height:32px}
   .cd{display:flex;gap:8px;justify-content:center;margin:6px 0 4px}
   .cdBox{width:60px;padding:8px 0 6px;border:1px solid #c99a5a;border-radius:8px;background:rgba(255,248,235,.55);text-align:center}
   .cdNum{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1;color:var(--wine)}
@@ -440,22 +452,23 @@ const CONFIG = {
         { name: "Mehndi",  time: "4 PM",  note: "Colours · Pink & Green" },
         { name: "Sangeet", time: "7 PM",  note: "" }
       ],
-      venue: "Our Residence", city: "[Home Address]" },
+      venues: [ { name: "Our Residence", city: "59A, Sheetla Colony, Ashok Vihar Phase II, Gurugram" } ] },
     { label: "DAY TWO", art: "rangoli", day: "23", weekday: "Monday", monthYear: "Nov, 2026",
       events: [
-        { name: "Bhaat",  time: "11 AM", note: "" },
-        { name: "Chaak",  time: "3 PM",  note: "" },
-        { name: "Lagan",  time: "6 PM",  note: "" },
-        { name: "Dinner", time: "7 PM",  note: "" }
+        { name: "Bhaat",  time: "11 AM", note: "at Our Residence" },
+        { name: "Chaak",  time: "3 PM",  note: "at Our Residence" },
+        { name: "Lagan",  time: "6 PM",  note: "at Dreams Garden" },
+        { name: "Dinner", time: "7 PM",  note: "at Dreams Garden" }
       ],
-      venue: "Our Residence", city: "[Home Address]" },
+      venues: [ { name: "Our Residence", city: "" },
+                { name: "Dreams Garden", city: "", mapUrl: "https://maps.app.goo.gl/KRVuaHmTszuDxas38" } ] },
     { label: "THE WEDDING DAY", art: "ghodi", day: "24", weekday: "Tuesday", monthYear: "Nov, 2026",
       events: [
         { name: "Ghud Chadi", time: "4 PM", note: "at Our Residence" },
         { name: "Baraat",      time: "6 PM", note: "at The Jewels" }
       ],
-      venue: "The Jewels", city: "Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana – 122001",
-      mapUrl: "https://maps.app.goo.gl/hpbaLzYzomiRtpyS8" }
+      venues: [ { name: "The Jewels", city: "Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana – 122001",
+                  mapUrl: "https://maps.app.goo.gl/hpbaLzYzomiRtpyS8" } ] }
   ],
   blessing: "We invite you to join us on this joyous occasion and bless the couple with your love & good wishes.",
   complimentsFrom: "Family & Relatives"
@@ -478,22 +491,23 @@ const CONFIG_HI = {
         { name: "मेहंदी",  time: "शाम 4 बजे",  note: "रंग · गुलाबी एवं हरा" },
         { name: "संगीत",  time: "शाम 7 बजे",  note: "" }
       ],
-      venue: "निवास स्थान", city: "[घर का पता]" },
+      venues: [ { name: "निवास स्थान", city: "59ए, शीतला कॉलोनी, अशोक विहार फेज़ II, गुरुग्राम" } ] },
     { label: "दूसरा दिन", art: "rangoli", day: "23", weekday: "सोमवार", monthYear: "नवंबर, 2026",
       events: [
-        { name: "भात",     time: "सुबह 11 बजे",  note: "" },
-        { name: "चाक",     time: "दोपहर 3 बजे", note: "" },
-        { name: "लगन",     time: "शाम 6 बजे",   note: "" },
-        { name: "प्रीतिभोज", time: "शाम 7 बजे",   note: "" }
+        { name: "भात",     time: "सुबह 11 बजे",  note: "निवास स्थान पर" },
+        { name: "चाक",     time: "दोपहर 3 बजे", note: "निवास स्थान पर" },
+        { name: "लगन",     time: "शाम 6 बजे",   note: "ड्रीम्स गार्डन में" },
+        { name: "प्रीतिभोज", time: "शाम 7 बजे",   note: "ड्रीम्स गार्डन में" }
       ],
-      venue: "निवास स्थान", city: "[घर का पता]" },
+      venues: [ { name: "निवास स्थान", city: "" },
+                { name: "ड्रीम्स गार्डन", city: "", mapUrl: "https://maps.app.goo.gl/KRVuaHmTszuDxas38" } ] },
     { label: "शुभ विवाह", art: "ghodi", day: "24", weekday: "मंगलवार", monthYear: "नवंबर, 2026",
       events: [
         { name: "घुड़चढ़ी", time: "शाम 4 बजे", note: "निवास स्थान पर" },
         { name: "बारात",   time: "शाम 6 बजे", note: "द ज्वेल्स में" }
       ],
-      venue: "द ज्वेल्स", city: "अतुल कटारिया चौक के पास, शीतला माता रोड, गुरुग्राम, हरियाणा – 122001",
-      mapUrl: "https://maps.app.goo.gl/hpbaLzYzomiRtpyS8" }
+      venues: [ { name: "द ज्वेल्स", city: "अतुल कटारिया चौक के पास, शीतला माता रोड, गुरुग्राम, हरियाणा – 122001",
+                  mapUrl: "https://maps.app.goo.gl/hpbaLzYzomiRtpyS8" } ] }
   ],
   blessing: "इस मंगल अवसर पर पधारकर वर-वधू को अपना आशीर्वाद प्रदान करें।",
   complimentsFrom: "समस्त परिवारजन एवं संबंधी"
@@ -525,7 +539,7 @@ const GCAL = "https://calendar.google.com/calendar/render?action=TEMPLATE"
   + "&text=" + encodeURIComponent("Suraj & Jyoti's Wedding")
   + "&dates=20261122/20261125"
   + "&location=" + encodeURIComponent("The Jewels, Near Atul Katariya Chowk, Sheetla Mata Road, Gurugram, Haryana 122001")
-  + "&details=" + encodeURIComponent("22 Nov: Haldi 11 AM, Mehndi 4 PM, Sangeet 7 PM (our residence)\n23 Nov: Bhaat 11 AM, Chaak 3 PM, Lagan 6 PM, Dinner 7 PM (our residence)\n24 Nov: Ghud Chadi 4 PM (our residence), Baraat 6 PM at The Jewels\n\nDirections: https://maps.app.goo.gl/hpbaLzYzomiRtpyS8");
+  + "&details=" + encodeURIComponent("22 Nov: Haldi 11 AM, Mehndi 4 PM, Sangeet 7 PM (our residence, 59A Sheetla Colony, Ashok Vihar Phase II)\n23 Nov: Bhaat 11 AM, Chaak 3 PM (our residence), Lagan 6 PM, Dinner 7 PM (Dreams Garden)\n24 Nov: Ghud Chadi 4 PM (our residence), Baraat 6 PM at The Jewels\n\nDirections: https://maps.app.goo.gl/hpbaLzYzomiRtpyS8");
 /* ========================================================= */
 
 const NS = "http://www.w3.org/2000/svg";
@@ -868,11 +882,11 @@ function ghodiSVG(){
 function rangoliSVG(){
   const C=['#d9466f','#f0a02a','#3f8f6b','#8a3a9a'];
   let g=`<g opacity=".72">`;
-  for(let x=4;x<=344;x+=8) g+=`<circle cx="${x}" cy="464" r="1.3" fill="${C[(x/8|0)%4]}"/><circle cx="${x}" cy="510" r="1.3" fill="${C[((x/8|0)+2)%4]}"/>`;
-  let sc='M0,470'; for(let x=0;x<348;x+=14.5) sc+=` q7.25,-8 14.5,0`;
+  for(let x=4;x<=344;x+=8) g+=`<circle cx="${x}" cy="478" r="1.3" fill="${C[(x/8|0)%4]}"/><circle cx="${x}" cy="518" r="1.3" fill="${C[((x/8|0)+2)%4]}"/>`;
+  let sc='M0,483'; for(let x=0;x<348;x+=14.5) sc+=` q7.25,-8 14.5,0`;
   g+=`<path d="${sc}" fill="none" stroke="#c99a5a" stroke-width="1"/>`;
   for(let i=0;i<6;i++){
-    const cx=29+i*58, cy=490, delay=(i*.18+.4).toFixed(2);
+    const cx=29+i*58, cy=500, delay=(i*.18+.4).toFixed(2);
     let m=`<g class="rg" style="animation-delay:${delay}s" transform="translate(${cx} ${cy})">`;
     for(let k=0;k<8;k++) m+=`<path transform="rotate(${k*45})" d="M0,-4 C6,-8 5,-17 0,-20 C-5,-17 -6,-8 0,-4Z" fill="${C[k%2?0:1]}" stroke="#7a2a2a" stroke-width=".4"/>`;
     for(let k=0;k<8;k++) m+=`<path transform="rotate(${k*45+22.5})" d="M0,-3 C3,-5 3,-9 0,-11 C-3,-9 -3,-5 0,-3Z" fill="${C[2]}"/>`;
@@ -963,12 +977,15 @@ function buildScenes(){
         <div class="dside">${esc(d.weekday)}<br>${esc(d.monthYear)}</div>
       </div>
       ${divider(1.1)}
-      <div class="evList">${rows}</div>
-      ${d.venue?`${divider(after+.2)}
+      <div class="evList${d.events.length>=4?' compact':''}">${rows}</div>
+      ${d.venues&&d.venues.length?`${divider(after+.2)}
       <div class="caps r" style="--d:${after+.4}s;letter-spacing:.35em">${U.venue}</div>
-      <div class="serif b r" style="--d:${after+.6}s;font-size:18px;margin-top:2px">${esc(d.venue)}</div>
-      <div class="serif it r" style="--d:${after+.8}s;font-size:14.5px;line-height:1.25;max-width:260px">${esc(d.city)}</div>
-      ${d.mapUrl?`<a class="dirLink r" style="--d:${after+1.1}s" href="${d.mapUrl}" target="_blank" rel="noopener">${pinIcon}<span>${U.getDir}</span></a>`:''}`:''}`);
+      <div class="venues${d.venues.length>1?' two':''}">${d.venues.map((v,j)=>`
+        <div class="venue r" style="--d:${after+.6+j*.2}s">
+          <div class="serif b vName">${esc(v.name)}</div>
+          ${v.city?`<div class="serif it vCity">${esc(v.city)}</div>`:''}
+          ${v.mapUrl?`<a class="dirLink" href="${v.mapUrl}" target="_blank" rel="noopener">${pinIcon}<span>${U.getDir}</span></a>`:''}
+        </div>`).join('')}</div>`:''}`);
   }
   // closing
   S.push(`
@@ -978,7 +995,7 @@ function buildScenes(){
     <div class="serif b r" style="--d:2.3s;font-size:17px">${U.compliments}</div>
     <div class="serif it r" style="--d:2.6s;font-size:17px">${esc(C.complimentsFrom)}</div>`);
   // countdown
-  const map = C.days[C.days.length-1].mapUrl;
+  const map = (C.days[C.days.length-1].venues||[{}])[0].mapUrl;
   S.push(`
     <div class="caps r" style="--d:.1s;letter-spacing:.36em">${U.cdLabel}</div>
     <div class="script w" style="--d:.4s;font-size:48px;margin-top:4px">${U.cdTitle}</div>
