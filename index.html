@@ -522,7 +522,7 @@ const UI = {
         tapMusic: "Tap for music", tapMute: "Tap to mute", muteCap: "mute",
         cdLabel: "COUNTING DOWN TO", cdTitle: "Our Wedding", cdDate: "Baraat · 24 Nov 2026 · 6 PM",
         units: ["Days", "Hours", "Mins", "Secs"], cdStarted: "The celebrations have begun!", cdDone: "Just married!",
-        calGoogle: "Add to Google Calendar", calApple: "Add to iPhone / Outlook", directions: "Directions to The Jewels",
+        calGoogle: "Add to Google Calendar", calApple: "Add to iPhone / Outlook", directions: "Directions to The Jewels", dirLagan: "Directions to Dreams Garden",
         getDir: "Get directions", langBtn: "हिंदी", langAria: "Show in Hindi" },
   hi: { wedding: "शुभ विवाह", invitation: "निमंत्रण", amp: "संग",
         request: ["अपने प्रिय सुपुत्र के शुभ विवाह में", "आपको सादर आमंत्रित करते हैं"], withWord: "संग",
@@ -531,7 +531,7 @@ const UI = {
         tapMusic: "संगीत के लिए टैप करें", tapMute: "बंद करने के लिए टैप करें", muteCap: "बंद करें",
         cdLabel: "शुभ घड़ी में शेष", cdTitle: "हमारा विवाह", cdDate: "बारात · 24 नवंबर 2026 · शाम 6 बजे",
         units: ["दिन", "घंटे", "मिनट", "सेकंड"], cdStarted: "उत्सव आरंभ हो चुका है!", cdDone: "शुभ विवाह संपन्न!",
-        calGoogle: "गूगल कैलेंडर में जोड़ें", calApple: "आईफ़ोन / आउटलुक में जोड़ें", directions: "द ज्वेल्स का रास्ता",
+        calGoogle: "गूगल कैलेंडर में जोड़ें", calApple: "आईफ़ोन / आउटलुक में जोड़ें", directions: "द ज्वेल्स का रास्ता", dirLagan: "ड्रीम्स गार्डन का रास्ता",
         getDir: "रास्ता देखें", langBtn: "English", langAria: "Show in English" }
 };
 const WEDDING_AT = new Date("2026-11-24T18:00:00+05:30");   // countdown target (Baraat)
@@ -996,6 +996,7 @@ function buildScenes(){
     <div class="serif it r" style="--d:2.6s;font-size:17px">${esc(C.complimentsFrom)}</div>`);
   // countdown
   const map = (C.days[C.days.length-1].venues||[{}])[0].mapUrl;
+  const laganMap = ((C.days[1]||{}).venues||[]).map(v=>v.mapUrl).find(Boolean);
   S.push(`
     <div class="caps r" style="--d:.1s;letter-spacing:.36em">${U.cdLabel}</div>
     <div class="script w" style="--d:.4s;font-size:48px;margin-top:4px">${U.cdTitle}</div>
@@ -1006,9 +1007,10 @@ function buildScenes(){
     </div>
     <div class="cdMsg" data-u="msg"></div>
     <div class="ctas r" style="--d:1.9s">
+      ${map?`<a class="cta" href="${map}" target="_blank" rel="noopener">${pinIcon}<span>${U.directions}</span></a>`:''}
+      ${laganMap?`<a class="cta" href="${laganMap}" target="_blank" rel="noopener">${pinIcon}<span>${U.dirLagan}</span></a>`:''}
       <a class="cta" href="${GCAL}" target="_blank" rel="noopener">${calIcon}<span>${U.calGoogle}</span></a>
       <a class="cta" href="invite.ics" target="_blank" rel="noopener">${calIcon}<span>${U.calApple}</span></a>
-      ${map?`<a class="cta" href="${map}" target="_blank" rel="noopener">${pinIcon}<span>${U.directions}</span></a>`:''}
     </div>`);
   return S;
 }
