@@ -60,6 +60,14 @@
   @keyframes sheen{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
 
   .content{position:absolute;left:30px;right:30px;top:70px;bottom:36px;transform:translateZ(14px);color:var(--ink)}
+  .paper{position:absolute;left:-12px;top:-50px;width:324px;height:528px;z-index:0;pointer-events:none}
+  .toranTop{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;transform:translateZ(22px)}
+  .scene.under{z-index:2}
+  .scene.turning{z-index:6;transform-origin:-12px 50%;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    animation:pageTurn 1.2s cubic-bezier(.4,.1,.35,1) forwards}
+  @keyframes pageTurn{0%{transform:perspective(1400px) rotateY(0deg);filter:brightness(1)}
+    55%{filter:brightness(.85)} 100%{transform:perspective(1400px) rotateY(-172deg);filter:brightness(.7)}}
+  @media (prefers-reduced-motion:reduce){.scene.turning{animation-duration:.01s}}
   .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
     opacity:1;transition:opacity .9s ease, filter .9s ease, transform .9s ease;pointer-events:none}
   .scene.off{opacity:0;filter:blur(8px);transform:translateY(-10px)}
@@ -160,7 +168,7 @@
   .musicTip.hide{opacity:0}
 
   /* ---------- scene artwork ---------- */
-  .scene > *:not(.wm){position:relative;z-index:1}
+  .scene > *:not(.wm):not(.paper){position:relative;z-index:1}
   .wm{position:absolute;inset:-40px -24px -24px;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.6s ease .3s}
   .scene.on .wm{opacity:1}
   .wm svg{width:100%;height:100%}
@@ -355,12 +363,14 @@
             <use href="#arch" fill="none" stroke="url(#goldG)" stroke-width="1.8" transform="translate(180 290) scale(.952 .969) translate(-180 -290)"/>
             <use href="#arch" fill="none" stroke="url(#goldG)" stroke-width=".7" opacity=".8" transform="translate(180 290) scale(.935 .958) translate(-180 -290)"/>
             <g id="cardOrn" fill="none" stroke="url(#goldG)" stroke-width="1"></g>
-            <path id="toranLine" d="M62,118 C74,50 124,26 180,26 C236,26 286,50 298,118" fill="none" stroke="#8a5a3a" stroke-width="1.1"/>
-            <g class="toran" id="toran"></g>
           </svg>
           <div class="sheen"></div>
         </div>
         <div class="content" id="content"></div>
+        <svg class="toranTop" viewBox="0 0 360 560" aria-hidden="true">
+          <path id="toranLine" d="M62,118 C74,50 124,26 180,26 C236,26 286,50 298,118" fill="none" stroke="#8a5a3a" stroke-width="1.1"/>
+          <g class="toran" id="toran"></g>
+        </svg>
       </div></div></div>
     </div>
     <div class="fg"><svg id="fgSvg" viewBox="0 0 450 800" aria-hidden="true"></svg></div>
@@ -937,6 +947,21 @@ function monogram(size=1, d=0){
 
 const pinIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg>`;
 const calIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
+/* each page is its own sheet of paper, so it can turn like a book page */
+const PAPER_ARCH = "M18.2,547.8 L18.2,156.3 A40,40.7 0 0 0 58.1,115.6 L65.8,115.6 C77.2,49.7 124.8,20.6 180.0,20.6 C235.2,20.6 282.8,49.7 294.2,115.6 L301.9,115.6 A40,40.7 0 0 0 341.8,156.3 L341.8,547.8 Z";
+function paperSVG(own){
+  return `<svg class="paper" viewBox="18 20 324 528" aria-hidden="true">
+    <path d="${PAPER_ARCH}" fill="url(#paper)"/>
+    <path d="${PAPER_ARCH}" fill="#000" filter="url(#mottle)"/>
+    <path d="${PAPER_ARCH}" fill="url(#vign)"/>
+    <path d="M180,26 l5,8 -5,8 -5,-8z" fill="url(#goldG)"/>
+    <path d="M150,538 C165,530 172,544 180,536 C188,544 195,530 210,538" fill="none" stroke="url(#goldG)"/>
+    ${own ? '' : `<g fill="none" stroke="#a07850" stroke-width=".9" opacity=".26" transform="translate(180 318) scale(1.25)">${kalashArt()}</g>`}
+    <g fill="none" stroke="#9c7650" stroke-width=".8" opacity=".2"><g transform="translate(18 470)">${sprig()}</g><g transform="translate(342 470) scale(-1 1)">${sprig()}</g></g>
+    <path d="${PAPER_ARCH}" fill="none" stroke="#c9a46a" stroke-width=".6" opacity=".5"/>
+  </svg>`;
+}
 function buildScenes(){
   const S = [];
   // 0 Shree Ganesh
@@ -1022,7 +1047,8 @@ let scenes = [], curIdx = -1;
 function render(){
   C = lang === 'hi' ? CONFIG_HI : CONFIG; U = UI[lang];
   const S = buildScenes();
-  content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}"${/class="(wm|mono|ganeshArt)/.test(h)?' data-own="1"':''}>${h}</div>`).join('');
+  content.innerHTML = S.map((h,i)=>{ const own = /class="(wm|mono|ganeshArt)/.test(h);
+    return `<div class="scene" id="s${i}"${own?' data-own="1"':''}>${paperSVG(own)}${h}</div>`; }).join('');
   scenes = [...content.querySelectorAll('.scene')];
   scenes[2].style.justifyContent='flex-start'; scenes[2].style.paddingTop='26px';
   scenes.forEach((sc,i)=>{ if(i === curIdx) sc.classList.add('on'); else sc.classList.add('off'); });
@@ -1086,7 +1112,7 @@ let run = 0, started = false;
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
 const HOLD = [5200, 4200, 6000, 8600, 8200, 8800, 7600, 7000];   // ms each scene stays before the next
 
-function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
+function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on','turning','under'); s.classList.add('off'); }); }
 
 async function play(){
   const id = ++run;
@@ -1098,17 +1124,25 @@ async function play(){
   setTimeout(()=>{ if(alive()) $('#doors').classList.add('gone'); }, 2400);
   await sleep(1300); if(!alive()) return;
   for(let i=0;i<scenes.length;i++){
-    scenes[i].classList.remove('off');
-    void scenes[i].offsetWidth;
-    scenes[i].classList.add('on');
+    if(!scenes[i].classList.contains('on')){
+      scenes[i].classList.remove('off');
+      void scenes[i].offsetWidth;
+      scenes[i].classList.add('on');
+    }
     curIdx = i;
     setCouple(i);
     stage.classList.toggle('ownWM', scenes[i].dataset.own==='1');
     if(i === scenes.length-1) break;
     await sleep(HOLD[i] + (i===0?1200:0)); if(!alive()) return;
-    scenes[i].classList.add('off');
-    await sleep(900); if(!alive()) return;
-    scenes[i].classList.remove('on');
+    // page turn: the next page is already underneath; the current page lifts and turns over
+    const cur = scenes[i], nxt = scenes[i+1];
+    nxt.style.transition = 'none'; nxt.classList.remove('off'); void nxt.offsetWidth; nxt.style.transition = '';
+    nxt.classList.add('on','under');
+    cur.classList.add('turning');
+    await sleep(1200); if(!alive()) return;
+    cur.style.transition = 'none'; cur.classList.add('off'); cur.classList.remove('turning','on');
+    void cur.offsetWidth; cur.style.transition = '';
+    nxt.classList.remove('under');
   }
   await sleep(4200); if(!alive()) return;
   $('#replay').classList.add('show');
