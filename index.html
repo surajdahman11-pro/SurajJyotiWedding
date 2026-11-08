@@ -218,6 +218,9 @@
   .hi .mletters{font-size:130px;line-height:1.3}
   .hi .mono .m2{margin-left:.04em;transform:translateY(.06em)}
   .hi .musicLabel{font-size:14px}
+  .ganeshArt{width:250px;height:272px}
+  .ganeshArt svg{width:100%;height:100%;overflow:visible;animation:gGlow 4s ease-in-out infinite}
+  @keyframes gGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(243,198,109,0))}50%{filter:drop-shadow(0 0 10px rgba(243,198,109,.55))}}
   /* ---------- couple ---------- */
   .couple{position:absolute;left:0;top:0;width:200px;height:260px;z-index:9;pointer-events:none;transform-origin:0 0;
     opacity:0;transform:translate(125px,590px) scale(1);transition:transform 1.8s cubic-bezier(.4,.1,.2,1), opacity 1.2s ease}
@@ -866,6 +869,41 @@ function wmFor(kind){
   if(kind==='rangoli') return `<div class="wm rangoli">${rangoliSVG()}</div>`;
   return '';
 }
+function ganeshSVG(){
+  return `<svg class="ganeshSvg" viewBox="-110 -125 220 240" aria-hidden="true"><defs>
+    <radialGradient id="gAura" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe7a8" stop-opacity=".85"/><stop offset=".55" stop-color="#f3c66d" stop-opacity=".35"/><stop offset="1" stop-color="#f3c66d" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9c8"/><stop offset="1" stop-color="#f0cf98"/></linearGradient></defs>
+    <circle r="108" fill="url(#gAura)"/>
+<g stroke="#b8875a" stroke-width=".8" opacity=".5">
+ <circle r="96" fill="none" stroke-dasharray="2 4"/>
+</g>
+<g fill="url(#gSkin)" stroke="#8a4a25" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+ <!-- ears -->
+ <path d="M-30,-48 C-62,-66 -96,-46 -94,-12 C-92,18 -64,34 -34,16 Z"/>
+ <path d="M30,-48 C62,-66 96,-46 94,-12 C92,18 64,34 34,16 Z"/>
+ <path d="M-36,-40 C-60,-52 -84,-36 -82,-12 C-80,10 -60,22 -38,10" fill="none" stroke="#c7955c" stroke-dasharray="2 3"/>
+ <path d="M36,-40 C60,-52 84,-36 82,-12 C80,10 60,22 38,10" fill="none" stroke="#c7955c" stroke-dasharray="2 3"/>
+ <!-- head/face + trunk as one shape -->
+ <path d="M-32,-56 C-40,-30 -36,-6 -22,8 C-16,14 -12,18 -12,28 C-14,46 -6,62 10,70 C26,80 44,70 40,54 C37,44 26,44 26,52 C26,58 20,60 16,54 C10,44 10,32 12,26 C14,18 17,13 22,8 C36,-6 40,-30 32,-56 Z"/>
+ <path d="M-11,22 Q0,26 10,22 M-10,34 Q1,38 11,34 M-6,46 Q4,49 13,45" fill="none" stroke-width="1.1"/>
+ <!-- tusk -->
+ <path d="M16,14 C24,16 30,24 30,32 C26,28 20,24 13,22 Z" fill="#fffaf0"/>
+ <!-- crown -->
+ <path d="M-34,-56 C-34,-74 -22,-88 0,-114 C22,-88 34,-74 34,-56 Z" fill="url(#goldG)"/>
+ <path d="M-34,-56 L34,-56" stroke-width="3" stroke="#8a4a25"/>
+ <path d="M-30,-66 Q0,-60 30,-66 M-24,-80 Q0,-74 24,-80 M-14,-96 Q0,-92 14,-96" fill="none" stroke="#fff3d0" stroke-width="1"/>
+ <circle cx="0" cy="-70" r="4.5" fill="#b3243a"/><circle cx="-16" cy="-64" r="2.5" fill="#2f6b4f"/><circle cx="16" cy="-64" r="2.5" fill="#2f6b4f"/>
+ <circle cx="0" cy="-116" r="3" fill="url(#goldG)"/>
+ <!-- eyes, tilak -->
+ <path d="M-20,-28 Q-13,-34 -6,-28 Q-13,-25 -20,-28Z" fill="#4a1018" stroke-width="1"/>
+ <path d="M6,-28 Q13,-34 20,-28 Q13,-25 6,-28Z" fill="#4a1018" stroke-width="1"/>
+ <path d="M-5,-50 C-5,-40 5,-40 5,-50" fill="none" stroke="#b3243a" stroke-width="2.2"/>
+ <circle cx="0" cy="-38" r="2.4" fill="#b3243a" stroke="none"/>
+ <!-- necklace -->
+ <path d="M-44,26 Q-30,56 -12,62 M44,26 Q32,52 30,58" fill="none" stroke="#b8875a" stroke-width="2" stroke-dasharray="1 3.5"/>
+</g>
+</svg>`;
+}
 function monogram(size=1, d=0){
   return `<div class="mono r" style="--d:${d}s;transform-origin:center;${size!==1?`width:${250*size}px;height:${190*size}px`:''}">
     <div style="transform:scale(${size});transform-origin:0 0;width:250px;height:190px;position:relative">
@@ -898,6 +936,10 @@ const pinIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-7
 const calIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 function buildScenes(){
   const S = [];
+  // 0 Shree Ganesh
+  S.push(`<div class="ganeshArt r" style="--d:.1s">${ganeshSVG()}</div>
+    <div class="ganesh r" style="--d:1s;font-size:22px;margin-top:10px;white-space:nowrap">${esc(C.ganesh)}</div>
+    ${divider(1.5)}`);
   // 1 monogram
   S.push(`${monogram(1,.1)}${divider(1.4)}`);
   // 2 title + names
@@ -971,9 +1013,9 @@ let scenes = [], curIdx = -1;
 function render(){
   C = lang === 'hi' ? CONFIG_HI : CONFIG; U = UI[lang];
   const S = buildScenes();
-  content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}"${/class="(wm|mono)/.test(h)?' data-own="1"':''}>${h}</div>`).join('');
+  content.innerHTML = S.map((h,i)=>`<div class="scene" id="s${i}"${/class="(wm|mono|ganeshArt)/.test(h)?' data-own="1"':''}>${h}</div>`).join('');
   scenes = [...content.querySelectorAll('.scene')];
-  scenes[1].style.justifyContent='flex-start'; scenes[1].style.paddingTop='26px';
+  scenes[2].style.justifyContent='flex-start'; scenes[2].style.paddingTop='26px';
   scenes.forEach((sc,i)=>{ if(i === curIdx) sc.classList.add('on'); else sc.classList.add('off'); });
   stage.classList.toggle('hi', lang === 'hi');
   document.documentElement.lang = lang;
@@ -1001,7 +1043,7 @@ setInterval(tickCountdown, 1000);
 render();
 const couple = $('#couple');
 function setCouple(i){ couple.classList.remove('center','corner');
-  if(i===1) couple.classList.add('center'); else if(i>=2) couple.classList.add('corner'); }
+  if(i===2) couple.classList.add('center'); else if(i>=3) couple.classList.add('corner'); }
 
 /* ---------- petals ---------- */
 const petalBox = $('#petals'); let petalTimer = null;
@@ -1033,7 +1075,7 @@ stage.addEventListener('pointerleave', ()=> tilt.style.transform = '');
 /* ---------- timeline ---------- */
 let run = 0, started = false;
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
-const HOLD = [4200, 6000, 8600, 8200, 8800, 7600, 7000];   // ms each scene stays before the next
+const HOLD = [4400, 4200, 6000, 8600, 8200, 8800, 7600, 7000];   // ms each scene stays before the next
 
 function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
 
