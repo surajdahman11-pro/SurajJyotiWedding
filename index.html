@@ -200,6 +200,7 @@
   .evList.compact .evNote{font-size:12px;margin-top:0}
   .evList.compact .evBar{height:26px}
   .hi .evList.compact .evName{font-size:23px}
+  .amp{display:inline-block;margin:0 .22em}
   .venues{display:flex;justify-content:center;gap:14px;width:100%;max-width:290px}
   .venue{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;flex:1}
   .vName{font-size:18px;margin-top:2px}
@@ -515,7 +516,7 @@ const CONFIG_HI = {
 
 /* Fixed wording used around the details, in both languages */
 const UI = {
-  en: { wedding: "WEDDING", invitation: "INVITATION", amp: "&amp;",
+  en: { wedding: "WEDDING", invitation: "INVITATION", ofWord: "of", amp: "&amp;",
         request: ["request the pleasure of your presence", "at the wedding ceremony of their"], withWord: "with",
         venue: "VENUE", compliments: "With Best Compliments From",
         tapOpen: "TAP TO OPEN", invited: "you are cordially invited", replay: "REPLAY",
@@ -524,7 +525,7 @@ const UI = {
         units: ["Days", "Hours", "Mins", "Secs"], cdStarted: "The celebrations have begun!", cdDone: "Just married!",
         calGoogle: "Add to Google Calendar", calApple: "Add to iPhone / Outlook", directions: "Directions to The Jewels (Wedding)", dirLagan: "Directions to Dreams Garden (Lagan)",
         getDir: "Get directions", langBtn: "हिंदी", langAria: "Show in Hindi" },
-  hi: { wedding: "शुभ विवाह", invitation: "निमंत्रण", amp: "संग",
+  hi: { wedding: "शुभ विवाह", invitation: "निमंत्रण", ofWord: "", amp: "संग",
         request: ["अपने प्रिय सुपुत्र के शुभ विवाह में", "आपको सादर आमंत्रित करते हैं"], withWord: "संग",
         venue: "स्थान", compliments: "विनीत",
         tapOpen: "खोलने के लिए टैप करें", invited: "आप सादर आमंत्रित हैं", replay: "फिर से देखें",
@@ -951,7 +952,8 @@ function buildScenes(){
     ${divider(.7)}
     <div class="caps r" style="--d:1s;margin-top:14px">${U.wedding}</div>
     <div class="bigcaps r" style="--d:1.3s;margin-top:6px">${U.invitation}</div>
-    <div class="script w" style="--d:2s;font-size:50px;margin-top:22px">${esc(C.groom)} ${U.amp} ${esc(C.bride)}</div>`);
+    ${U.ofWord?`<div class="script r" style="--d:1.7s;font-size:28px;color:#6b2a2c;margin-top:8px">${U.ofWord}</div>`:''}
+    <div class="script w" style="--d:2s;font-size:50px;margin-top:${U.ofWord?2:22}px">${esc(C.groom)}<span class="amp">${U.amp}</span>${esc(C.bride)}</div>`);
   // 3 family invitation
   S.push(`
     <div class="ganesh r" style="--d:0s;font-size:15px">${esc(C.ganesh)}</div>
