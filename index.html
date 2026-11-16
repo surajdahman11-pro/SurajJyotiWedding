@@ -444,6 +444,9 @@ const CONFIG = {
   invocation: ["With the blessings of Lord Ganesha", "and the love of our elders"],
   groomParents: "Smt. Pushpa & Sh. Omprakash",
   groomRelation: "beloved son",
+  groomGrand: "Grand S/o Late Smt. Chand Kaur & Late Sh. Badlu Ram",
+  rsvp: ["Sh. Parshottam", "Sh. Rakesh", "Sh. Ravi"],
+  kids: ["Keshu", "Yashu", "Shivay"],
   brideParents: "Daughter of Smt. Indu Devi & Sh. Bijender Jangra",   // leave empty "" to hide
   // One scene per day. Each event: name, time, and an optional note (theme or venue)
   days: [
@@ -484,6 +487,9 @@ const CONFIG_HI = {
   invocation: ["विघ्नहर्ता श्री गणेश के आशीर्वाद", "एवं बड़ों के स्नेह से"],
   groomParents: "श्रीमती पुष्पा एवं श्री ओमप्रकाश",
   groomRelation: "",
+  groomGrand: "पौत्र स्व. श्रीमती चंद कौर एवं स्व. श्री बदलू राम",
+  rsvp: ["श्री परषोत्तम", "श्री राकेश", "श्री रवि"],
+  kids: ["केशु", "यशु", "शिवाय"],
   brideParents: "सुपुत्री श्रीमती इंदु देवी एवं श्री बिजेंद्र जांगड़ा",
   days: [
     { label: "पहला दिन", art: "bandhani", day: "22", weekday: "रविवार", monthYear: "नवंबर, 2026",
@@ -518,7 +524,7 @@ const CONFIG_HI = {
 const UI = {
   en: { wedding: "WEDDING", invitation: "INVITATION", ofWord: "of", amp: "&amp;",
         request: ["request the pleasure of your presence", "at the wedding ceremony of their"], withWord: "with",
-        venue: "VENUE", compliments: "With Best Compliments From",
+        venue: "VENUE", rsvp: "R.S.V.P", kidsLine: "A cute invitation from", compliments: "With Best Compliments From",
         tapOpen: "TAP TO OPEN", invited: "you are cordially invited", replay: "REPLAY",
         tapMusic: "Tap for music", tapMute: "Tap to mute", muteCap: "mute",
         cdLabel: "COUNTING DOWN TO", cdTitle: "Our Wedding", cdDate: "Baraat · 24 Nov 2026 · 6 PM",
@@ -527,7 +533,7 @@ const UI = {
         getDir: "Get directions", langBtn: "हिंदी", langAria: "Show in Hindi" },
   hi: { wedding: "शुभ विवाह", invitation: "निमंत्रण", ofWord: "", amp: "संग",
         request: ["अपने प्रिय सुपुत्र के शुभ विवाह में", "आपको सादर आमंत्रित करते हैं"], withWord: "संग",
-        venue: "स्थान", compliments: "विनीत",
+        venue: "स्थान", rsvp: "आपके आगमन के अभिलाषी", kidsLine: "नन्हे-मुन्नों की मनुहार", compliments: "विनीत",
         tapOpen: "खोलने के लिए टैप करें", invited: "आप सादर आमंत्रित हैं", replay: "फिर से देखें",
         tapMusic: "संगीत के लिए टैप करें", tapMute: "बंद करने के लिए टैप करें", muteCap: "बंद करें",
         cdLabel: "शुभ घड़ी में शेष", cdTitle: "हमारा विवाह", cdDate: "बारात · 24 नवंबर 2026 · शाम 6 बजे",
@@ -956,14 +962,15 @@ function buildScenes(){
     <div class="script w" style="--d:2s;font-size:50px;margin-top:${U.ofWord?2:22}px">${esc(C.groom)}<span class="amp">${U.amp}</span>${esc(C.bride)}</div>`);
   // 3 family invitation
   S.push(`
-    <div class="ganesh r" style="--d:0s;font-size:15px">${esc(C.ganesh)}</div>
-    <div class="serif it r" style="--d:.4s;font-size:15px;line-height:1.25;margin-top:6px">${esc(C.invocation[0])}<br>${esc(C.invocation[1])}</div>
+    <div class="serif it r" style="--d:.2s;font-size:15px;line-height:1.25;margin-top:34px">${esc(C.invocation[0])}<br>${esc(C.invocation[1])}</div>
     <div class="serif b r" style="--d:1s;font-size:18px;margin-top:12px">${esc(C.groomParents)}</div>
     <div class="serif r" style="--d:1.4s;font-size:16px;line-height:1.22;margin-top:4px">${U.request[0]}<br>${U.request[1]}${C.groomRelation?'<br>'+esc(C.groomRelation):''}</div>
-    <div class="script w" style="--d:2.2s;font-size:54px;margin-top:10px">${esc(C.groom)}</div>
-    <div class="script r" style="--d:3.2s;font-size:28px;color:#6b2a2c">${U.withWord}</div>
-    <div class="script w" style="--d:3.6s;font-size:54px">${esc(C.bride)}</div>
-    ${C.brideParents?`<div class="serif r" style="--d:4.6s;font-size:14.5px;margin-top:6px;line-height:1.25">${esc(C.brideParents)}</div>`:''}`);
+    <div class="script w" style="--d:2.2s;font-size:50px;margin-top:8px">${esc(C.groom)}</div>
+    ${C.groomGrand?`<div class="serif it r" style="--d:2.9s;font-size:13px;line-height:1.2">${esc(C.groomGrand)}</div>`:''}
+    <div class="script r" style="--d:3.4s;font-size:26px;color:#6b2a2c;margin-top:2px">${U.withWord}</div>
+    <div class="script w" style="--d:3.8s;font-size:50px">${esc(C.bride)}</div>
+    ${C.brideParents?`<div class="serif it r" style="--d:4.6s;font-size:13px;line-height:1.2">${esc(C.brideParents)}</div>`:''}
+`);
   // day-by-day schedule
   for (const d of C.days){
     const rows = d.events.map((e,i)=>`
@@ -991,11 +998,16 @@ function buildScenes(){
   }
   // closing
   S.push(`
-    ${monogram(.72,.1)}
-    <div class="serif it r" style="--d:1.2s;font-size:16px;line-height:1.32;margin-top:14px;max-width:270px">${esc(C.blessing)}</div>
-    ${divider(1.9)}
-    <div class="serif b r" style="--d:2.3s;font-size:17px">${U.compliments}</div>
-    <div class="serif it r" style="--d:2.6s;font-size:17px">${esc(C.complimentsFrom)}</div>`);
+    ${monogram(.56,.1)}
+    <div class="serif it r" style="--d:1s;font-size:15px;line-height:1.3;margin-top:6px;max-width:236px">${esc(C.blessing)}</div>
+    ${divider(1.5)}
+    <div class="serif b r" style="--d:1.8s;font-size:15.5px">${U.compliments}</div>
+    <div class="serif it r" style="--d:2s;font-size:15.5px">${esc(C.complimentsFrom)}</div>
+    ${C.rsvp&&C.rsvp.length?`${divider(2.5)}
+    <div class="caps r" style="--d:2.7s;letter-spacing:.3em">${U.rsvp}</div>
+    <div class="serif b r" style="--d:3s;font-size:14.5px;margin-top:2px;line-height:1.3">${C.rsvp.map(esc).join(' · ')}</div>`:''}
+    ${C.kids&&C.kids.length?`<div class="serif it r" style="--d:3.6s;font-size:14px;margin-top:12px">${U.kidsLine}</div>
+    <div class="script w" style="--d:3.9s;font-size:32px;line-height:1.1">${C.kids.map(esc).join(', ')}</div>`:''}`);
   // countdown
   const map = (C.days[C.days.length-1].venues||[{}])[0].mapUrl;
   const laganMap = (((C.days[1]||{}).venues||[]).slice(-1)[0]||{}).mapUrl;
@@ -1084,7 +1096,7 @@ stage.addEventListener('pointerleave', ()=> tilt.style.transform = '');
 /* ---------- timeline ---------- */
 let run = 0, started = false;
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
-const HOLD = [5200, 4200, 6000, 8600, 8200, 8800, 7600, 7000];   // ms each scene stays before the next
+const HOLD = [5200, 4200, 6000, 9600, 8200, 8800, 7600, 9000];   // ms each scene stays before the next
 
 function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
 
