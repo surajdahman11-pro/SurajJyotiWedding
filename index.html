@@ -1100,6 +1100,25 @@ const HOLD = [5200, 4200, 6000, 9600, 8200, 8800, 7600, 9000];   // ms each scen
 
 function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
 
+/* ---------- page sequence (auto-advance + tap left/right) ---------- */
+let advT = null, replayT = null, navReady = false;
+function showScene(i){
+  i = Math.max(0, Math.min(scenes.length-1, i));
+  if(i === curIdx) return;
+  const prev = scenes[curIdx];
+  if(prev){ prev.classList.add('off'); const p = prev; setTimeout(()=>{ if(p !== scenes[curIdx]) p.classList.remove('on'); }, 900); }
+  const el = scenes[i];
+  el.classList.remove('off'); void el.offsetWidth; el.classList.add('on');
+  curIdx = i; setCouple(i);
+  stage.classList.toggle('ownWM', el.dataset.own==='1');
+  scheduleNext();
+}
+function scheduleNext(){
+  clearTimeout(advT); clearTimeout(replayT);
+  $('#replay').classList.toggle('show', false);
+  if(curIdx >= scenes.length-1){ replayT = setTimeout(()=>$('#replay').classList.add('show'), 4200); return; }
+  advT = setTimeout(()=>showScene(curIdx+1), HOLD[curIdx] + (curIdx===0?1200:0) + 900);
+}
 async function play(){
   const id = ++run;
   const alive = () => id === run;
@@ -1109,25 +1128,12 @@ async function play(){
   startPetals();
   setTimeout(()=>{ if(alive()) $('#doors').classList.add('gone'); }, 2400);
   await sleep(1300); if(!alive()) return;
-  for(let i=0;i<scenes.length;i++){
-    scenes[i].classList.remove('off');
-    void scenes[i].offsetWidth;
-    scenes[i].classList.add('on');
-    curIdx = i;
-    setCouple(i);
-    stage.classList.toggle('ownWM', scenes[i].dataset.own==='1');
-    if(i === scenes.length-1) break;
-    await sleep(HOLD[i] + (i===0?1200:0)); if(!alive()) return;
-    scenes[i].classList.add('off');
-    await sleep(900); if(!alive()) return;
-    scenes[i].classList.remove('on');
-  }
-  await sleep(4200); if(!alive()) return;
-  $('#replay').classList.add('show');
+  navReady = true;
+  showScene(0);
 }
 
 function reset(){
-  run++;
+  run++; navReady = false; clearTimeout(advT); clearTimeout(replayT);
   $('#replay').classList.remove('show');
   stopPetals();
   stage.classList.remove('opening','opened');
@@ -1168,8 +1174,12 @@ startMusic().then(ok=>{
 });
 resetScenes();
 stage.addEventListener('click', e=>{
-  if(e.target.closest('#replay')) return;
-  if(started) return; started = true; play();
+  if(e.target.closest('#replay, a, button')) return;
+  if(!started){ started = true; play(); return; }
+  if(!navReady) return;
+  const r = stage.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width;
+  if(x < 0.35) showScene(curIdx-1); else showScene(curIdx+1);
 });
 $('#replay').addEventListener('click', e=>{
   e.stopPropagation(); reset();
