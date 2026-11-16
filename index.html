@@ -185,6 +185,12 @@
     font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;font-size:16px;color:#fbe6bd;
     background:rgba(30,4,9,.72);border:1px solid rgba(217,180,126,.75);border-radius:999px;padding:6px 14px;
     box-shadow:0 2px 10px rgba(0,0,0,.35);animation:labelPulse 2.4s ease-in-out infinite;transition:opacity .6s}
+  .navHint{position:absolute;left:50%;bottom:26px;transform:translate(-50%,8px);z-index:44;white-space:nowrap;pointer-events:none;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;font-size:15px;color:#fbe6bd;
+    background:rgba(30,4,9,.72);border:1px solid rgba(217,180,126,.75);border-radius:999px;padding:7px 16px;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);opacity:0;transition:opacity .8s ease,transform .8s ease}
+  .navHint.show{opacity:1;transform:translate(-50%,0)}
+  .hi .navHint{font-family:'Kalam',cursive;font-style:normal;font-size:14px}
   .musicOn .musicLabel{display:none}
   .musicCap{display:none;position:absolute;top:61px;right:10px;width:56px;text-align:center;z-index:45;pointer-events:none;
     font-family:'Cormorant Garamond',serif;font-weight:600;font-size:12px;letter-spacing:.08em;color:#e8cfa0;text-shadow:0 1px 3px rgba(0,0,0,.6)}
@@ -422,6 +428,7 @@
   </div>
   <div class="hint" id="hint">TAP TO OPEN<small>you are cordially invited</small></div>
   <button class="replay" id="replay" type="button">REPLAY</button>
+  <div class="navHint" id="navHint" aria-hidden="true"></div>
   <div class="musicLabel" id="musicLabel">Tap for music</div>
   <div class="musicCap" id="musicCap" aria-hidden="true">mute</div>
   <button class="langBtn" id="langBtn" type="button" aria-label="Show in Hindi">हिंदी</button>
@@ -526,7 +533,7 @@ const UI = {
         request: ["request the pleasure of your presence", "at the wedding ceremony of their"], withWord: "with",
         venue: "VENUE", rsvp: "R.S.V.P", kidsLine: "A cute invitation from", compliments: "With Best Compliments From",
         tapOpen: "TAP TO OPEN", invited: "you are cordially invited", replay: "REPLAY",
-        tapMusic: "Tap for music", tapMute: "Tap to mute", muteCap: "mute",
+        navHint: "‹ Tap left to go back · Tap right for next ›", tapMusic: "Tap for music", tapMute: "Tap to mute", muteCap: "mute",
         cdLabel: "COUNTING DOWN TO", cdTitle: "Our Wedding", cdDate: "Baraat · 24 Nov 2026 · 6 PM",
         units: ["Days", "Hours", "Mins", "Secs"], cdStarted: "The celebrations have begun!", cdDone: "Just married!",
         calGoogle: "Add to Google Calendar", calApple: "Add to iPhone / Outlook", directions: "Directions to The Jewels (Wedding)", dirLagan: "Directions to Dreams Garden (Lagan)",
@@ -535,7 +542,7 @@ const UI = {
         request: ["अपने प्रिय सुपुत्र के शुभ विवाह में", "आपको सादर आमंत्रित करते हैं"], withWord: "संग",
         venue: "स्थान", rsvp: "आपके आगमन के अभिलाषी", kidsLine: "नन्हे-मुन्नों की मनुहार", compliments: "विनीत",
         tapOpen: "खोलने के लिए टैप करें", invited: "आप सादर आमंत्रित हैं", replay: "फिर से देखें",
-        tapMusic: "संगीत के लिए टैप करें", tapMute: "बंद करने के लिए टैप करें", muteCap: "बंद करें",
+        navHint: "‹ पीछे: बाएँ टैप करें · आगे: दाएँ टैप करें ›", tapMusic: "संगीत के लिए टैप करें", tapMute: "बंद करने के लिए टैप करें", muteCap: "बंद करें",
         cdLabel: "शुभ घड़ी में शेष", cdTitle: "हमारा विवाह", cdDate: "बारात · 24 नवंबर 2026 · शाम 6 बजे",
         units: ["दिन", "घंटे", "मिनट", "सेकंड"], cdStarted: "उत्सव आरंभ हो चुका है!", cdDone: "शुभ विवाह संपन्न!",
         calGoogle: "गूगल कैलेंडर में जोड़ें", calApple: "आईफ़ोन / आउटलुक में जोड़ें", directions: "द ज्वेल्स का रास्ता (विवाह)", dirLagan: "ड्रीम्स गार्डन का रास्ता (लगन)",
@@ -1042,6 +1049,7 @@ function render(){
   document.documentElement.lang = lang;
   $('#hint').innerHTML = `${U.tapOpen}<small>${U.invited}</small>`;
   $('#replay').textContent = U.replay;
+  $('#navHint').textContent = U.navHint;
   const lb = $('#langBtn'); lb.textContent = U.langBtn; lb.setAttribute('aria-label', U.langAria);
   try{ updateMusicLabel(); }catch(e){}   // music section may not be ready on first render
   tickCountdown();
@@ -1101,7 +1109,8 @@ const HOLD = [5200, 4200, 6000, 9600, 8200, 8800, 7600, 9000];   // ms each scen
 function resetScenes(){ scenes.forEach(s=>{ s.classList.remove('on'); s.classList.add('off'); }); }
 
 /* ---------- page sequence (auto-advance + tap left/right) ---------- */
-let advT = null, replayT = null, navReady = false;
+let advT = null, replayT = null, navReady = false, navTapped = false;
+function hideNavHint(){ $('#navHint').classList.remove('show'); }
 function showScene(i){
   i = Math.max(0, Math.min(scenes.length-1, i));
   if(i === curIdx) return;
@@ -1130,10 +1139,11 @@ async function play(){
   await sleep(1300); if(!alive()) return;
   navReady = true;
   showScene(0);
+  setTimeout(()=>{ if(alive() && !navTapped){ $('#navHint').classList.add('show'); setTimeout(hideNavHint, 6000); } }, 1800);
 }
 
 function reset(){
-  run++; navReady = false; clearTimeout(advT); clearTimeout(replayT);
+  run++; navReady = false; navTapped = false; hideNavHint(); clearTimeout(advT); clearTimeout(replayT);
   $('#replay').classList.remove('show');
   stopPetals();
   stage.classList.remove('opening','opened');
@@ -1177,6 +1187,7 @@ stage.addEventListener('click', e=>{
   if(e.target.closest('#replay, a, button')) return;
   if(!started){ started = true; play(); return; }
   if(!navReady) return;
+  navTapped = true; hideNavHint();
   const r = stage.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width;
   if(x < 0.35) showScene(curIdx-1); else showScene(curIdx+1);
